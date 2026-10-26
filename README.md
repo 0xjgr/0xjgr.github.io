@@ -1,16 +1,17 @@
 # jorgeress.github.io
 
-Mi web: [jorgeress.github.io](https://jorgeress.github.io).
+My website: [jorgeress.github.io](https://jorgeress.github.io).
 
-HTML, CSS y JavaScript sin frameworks ni paso de compilación: GitHub Pages
-sirve la rama `main` tal cual.
+HTML, CSS and JavaScript with no frameworks and no build step: GitHub Pages
+serves the `main` branch as is.
 
-- `index.html`, `css/`, `js/`: la página. Los proyectos están en un único
-  array al principio de `js/main.js`, del que tiran las tarjetas y la terminal.
-- `img/proyectos/`: una imagen 1280x640 por proyecto. Es la misma que uso
-  como social preview de cada repo y como banner en mi README de perfil.
-- `tools/previews.py`: genera esas imágenes (necesita `rsvg-convert` y
-  Pillow). `tools/cabecera.py` genera la cabecera animada del perfil.
+- `index.html`, `css/`, `js/`: the page. Projects live in a single array at
+  the top of `js/main.js`, which feeds both the cards and the terminal.
+- `img/proyectos/`: one 1280x640 image per project. The same image is the
+  repo's social preview and the banner on my profile README.
+- `tools/previews.py` generates those images (needs `rsvg-convert` and
+  Pillow). `tools/cabecera.py` generates the animated profile header, and
+  `tools/fondos.py` the sample wallpapers for the color picker.
 
-Para verla en local: `python3 -m http.server` y abrir `localhost:8000`.
-Pulsa `º` o `` ` `` para abrir la terminal.
+To run it locally: `python3 -m http.server` and open `localhost:8000`.
+Press `` ` `` (or `º` on a Spanish keyboard) to open the terminal.

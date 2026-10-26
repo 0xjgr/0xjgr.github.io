@@ -5,7 +5,7 @@
   const raiz = document.documentElement;
   const reducido = window.reducido;
   // imagenes de prueba con paletas muy distintas (las genera tools/fondos.py)
-  const FONDOS = ["oceano", "atardecer", "bosque", "desierto", "neon", "nieve"]
+  const FONDOS = ["ocean", "sunset", "forest", "desert", "neon", "snow"]
     .map((nombre) => ({ nombre, src: `img/fondos/${nombre}.jpg` }));
   const ORIGINAL = {
     fondo: "#0d0f13", superficie: "#14171d", borde: "#252a33", texto: "#e6e8ec",
@@ -146,7 +146,7 @@
     const url = URL.createObjectURL(archivo);
     try {
       const pal = extrae(await carga(url));
-      if (pal) aplica(pal, archivo.name.replace(/\.[^.]+$/, "").slice(0, 24) || "tu-imagen", origen);
+      if (pal) aplica(pal, archivo.name.replace(/\.[^.]+$/, "").slice(0, 24) || "your-image", origen);
     } finally {
       URL.revokeObjectURL(url);
     }
@@ -168,7 +168,7 @@
   const flotante = document.querySelector(".flotante");
 
   const restaurar = document.getElementById("restaurar");
-  fondos.innerHTML = FONDOS.map((f) => `<button type="button" data-fondo="${f.nombre}" aria-label="Probar con ${f.nombre}" title="${f.nombre}">`
+  fondos.innerHTML = FONDOS.map((f) => `<button type="button" data-fondo="${f.nombre}" aria-label="Try with ${f.nombre}" title="${f.nombre}">`
     + `<img src="${f.src}" alt="" loading="lazy"></button>`).join("");
   restaurar.addEventListener("click", (e) => aplicaFondo("original", { x: e.clientX, y: e.clientY }));
 

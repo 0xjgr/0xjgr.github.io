@@ -14,14 +14,14 @@
     const M = {
       antes: {
         debug: "anti_debug_checks", api: "dynamic_api_resolution_and_alloc",
-        legit: [["fp", "MATCH · falso positivo"], ["fp", "MATCH · falso positivo"]],
-        mal: [["tp", "MATCH · detectado"], ["tp", "MATCH · detectado"]],
-        cond: '<span class="c">// antes: anti_debug_checks</span>\n<span class="c">// bastaba UNA api anti-depuración, aunque fuera</span>\n<span class="c">// ubicua como IsDebuggerPresent, que ya trae</span>\n<span class="c">// el runtime de C (CRT) en software normal.</span>',
+        legit: [["fp", "MATCH · false positive"], ["fp", "MATCH · false positive"]],
+        mal: [["tp", "MATCH · detected"], ["tp", "MATCH · detected"]],
+        cond: '<span class="c">// before: anti_debug_checks</span>\n<span class="c">// ONE anti-debugging API was enough, even one as</span>\n<span class="c">// ubiquitous as IsDebuggerPresent, which the C</span>\n<span class="c">// runtime (CRT) already ships in normal software.</span>',
       },
       despues: {
         debug: "anti_debug_stacked", api: "dynamic_api_resolution_small_iat",
-        legit: [["limpio", "limpio · 0 fuertes"], ["limpio", "limpio · 214 ≥ 30"]],
-        mal: [["tp", "MATCH · 2 fuertes"], ["tp", "MATCH · 12 < 30"]],
+        legit: [["limpio", "clean · 0 strong"], ["limpio", "clean · 214 ≥ 30"]],
+        mal: [["tp", "MATCH · 2 strong"], ["tp", "MATCH · 12 < 30"]],
         cond: '<span class="k">rule</span> anti_debug_stacked {\n  <span class="k">condition:</span>\n    uint16(0) == 0x5A4D <span class="k">and</span>\n    (2 of ($s*) <span class="k">or</span> (1 of ($s*) <span class="k">and</span> 2 of ($w*)))\n}',
       },
     };
@@ -32,30 +32,30 @@
       <div class="bin" data-bin="${clave}">
         <h4>${nombre}</h4><p class="tipo-bin">${tipo}</p>
         <div class="imports">${imports.map(([t, c]) => `<span data-c="${c || ""}">${t}</span>`).join("")}</div>
-        <p class="n-imports">${n} funciones importadas</p>
+        <p class="n-imports">${n} imported functions</p>
         <div class="veredicto"><span class="regla-n" data-r="debug"></span><span class="res"></span></div>
         <div class="veredicto"><span class="regla-n" data-r="api"></span><span class="res"></span></div>
       </div>`;
 
     el.innerHTML = `
       <div class="cabeza-demo">
-        <div class="conmutador" role="group" aria-label="Versión de las reglas">
-          <button type="button" data-m="antes">antes</button>
-          <button type="button" data-m="despues">después</button>
+        <div class="conmutador" role="group" aria-label="Rule version">
+          <button type="button" data-m="antes">before</button>
+          <button type="button" data-m="despues">after</button>
         </div>
-        <span>reglas y cifras reales · binarios de ejemplo</span>
+        <span>real rules and numbers · sample binaries</span>
       </div>
       <div class="muestras-bin">
-        ${bin("instalador.exe", "legítimo, firmado", [["IsDebuggerPresent", "w"], ["OutputDebugString", "w"], ["GetProcAddress"], ["LoadLibraryW"], ["VirtualAlloc"]], 214, "legit")}
+        ${bin("installer.exe", "legitimate, signed", [["IsDebuggerPresent", "w"], ["OutputDebugString", "w"], ["GetProcAddress"], ["LoadLibraryW"], ["VirtualAlloc"]], 214, "legit")}
         ${bin("loader.exe", "malware", [["NtQueryInformationProcess", "s"], ["CheckRemoteDebuggerPresent", "s"], ["IsDebuggerPresent", "w"], ["GetProcAddress"], ["LoadLibraryA"], ["VirtualAlloc"]], 12, "mal")}
       </div>
       <pre class="condicion" aria-live="polite"></pre>
       <div class="barras">
-        <p class="leyenda">falsos positivos sobre 52 binarios legítimos</p>
-        ${BARRAS.map(([n, v]) => `<div class="barra-fila${n === "global" ? " global" : ""}"><span class="n">${n}</span><span class="pista-b"><span class="relleno" style="width:0"></span></span><span class="v">0 %</span></div>`).join("")}
+        <p class="leyenda">false positives on 52 legitimate binaries</p>
+        ${BARRAS.map(([n, v]) => `<div class="barra-fila${n === "global" ? " global" : ""}"><span class="n">${n}</span><span class="pista-b"><span class="relleno" style="width:0"></span></span><span class="v">0%</span></div>`).join("")}
       </div>`;
 
-    const fmt = (v) => v.toLocaleString("es-ES", { minimumFractionDigits: v % 1 ? (String(v).split(".")[1].length) : 1 }) + " %";
+    const fmt = (v) => v.toLocaleString("en-US", { minimumFractionDigits: v % 1 ? (String(v).split(".")[1].length) : 1 }) + "%";
     let modo = null, tocado = false;
     function pon(m) {
       if (m === modo) return;
@@ -71,14 +71,14 @@
       }
       el.querySelectorAll(".imports span").forEach((s) => {
         s.className = m === "despues" && s.dataset.c ? (s.dataset.c === "s" ? "fuerte" : "ubicua") : "";
-        s.title = m === "despues" && s.dataset.c ? (s.dataset.c === "s" ? "$s: fuerte, rara en software legítimo" : "$w: ubicua, aparece también en goodware") : "";
+        s.title = m === "despues" && s.dataset.c ? (s.dataset.c === "s" ? "$s: strong, rare in legitimate software" : "$w: ubiquitous, also shows up in goodware") : "";
       });
       el.querySelector(".condicion").innerHTML = d.cond;
       el.querySelectorAll(".barra-fila").forEach((f, i) => {
         const v = m === "antes" ? BARRAS[i][1] : 0;
         f.querySelector(".relleno").style.width = `${(v / 12.5) * 100}%`;
         const t = f.querySelector(".v");
-        t.textContent = m === "antes" ? fmt(v) : (BARRAS[i][0] === "global" ? "0,0 %" : "0 %");
+        t.textContent = m === "antes" ? fmt(v) : (BARRAS[i][0] === "global" ? "0.0%" : "0%");
         t.style.color = m === "antes" ? "var(--mal)" : "var(--bien)";
       });
     }
@@ -96,37 +96,37 @@
     const el = document.getElementById("demo-cibo");
     const ESCENAS = [
       {
-        boton: "¿cuánto es 4817 × 2963?",
+        boton: "what is 4817 × 2963?",
         pasos: [
-          ["yo", "¿Cuánto es 4817 × 2963?"],
-          ["paso", "router › intención: <b>cálculo</b> → herramienta"],
+          ["yo", "What is 4817 × 2963?"],
+          ["paso", "router › intent: <b>calculation</b> → tool"],
           ["paso ok", "Calculator(<code>4817 * 2963</code>) = <b>14272771</b>"],
-          ["cibo", "4817 × 2963 = 14.272.771. Lo ha hecho la calculadora: un modelo de 8B se lo habría inventado."],
+          ["cibo", "4817 × 2963 = 14,272,771. The calculator did it: an 8B model would have made it up."],
         ],
       },
       {
-        boton: "suma del 1 al 100 en Python",
+        boton: "sum 1 to 100 in Python",
         pasos: [
-          ["yo", "Ejecuta en Python la suma de los números del 1 al 100"],
-          ["paso", "router › intención: <b>ejecutar código</b>"],
+          ["yo", "Run the sum of the numbers from 1 to 100 in Python"],
+          ["paso", "router › intent: <b>run code</b>"],
           ["paso", "CodeExecutor › <code>print(sum(range(1, 101)))</code>"],
-          ["paso ok", "subproceso aislado con timeout › stdout: <b>5050</b>"],
-          ["cibo", "Da 5050. Lo he ejecutado en un subproceso aparte, no lo he calculado de cabeza."],
+          ["paso ok", "isolated subprocess with timeout › stdout: <b>5050</b>"],
+          ["cibo", "It's 5050. I ran it in a separate subprocess instead of working it out in my head."],
         ],
       },
       {
-        boton: "mándale mi tarjeta a la nube",
+        boton: "send my card to the cloud",
         pasos: [
-          ["yo", "Pregúntale a Claude si mi tarjeta 4111 1111 1111 1111 sigue activa"],
-          ["paso alerta", "sanitizer › dato sensible: <span class=\"tachado\">tarjeta 4111 •••• •••• 1111</span>"],
-          ["paso alerta", "router › datos sensibles → <b>no sale a la nube</b>"],
-          ["paso ok", "agente › <b>Ollama, en local</b> (en vez de Claude)"],
-          ["cibo", "Eso lleva un número de tarjeta, así que no lo mando fuera del equipo. Te contesto yo desde aquí."],
+          ["yo", "Ask Claude whether my card 4111 1111 1111 1111 is still active"],
+          ["paso alerta", "sanitizer › sensitive data: <span class=\"tachado\">card 4111 •••• •••• 1111</span>"],
+          ["paso alerta", "router › sensitive data → <b>stays off the cloud</b>"],
+          ["paso ok", "agent › <b>Ollama, local</b> (instead of Claude)"],
+          ["cibo", "That contains a card number, so I'm not sending it off this machine. I'll answer it myself from here."],
         ],
       },
     ];
     el.innerHTML = `
-      <div class="cabeza-demo"><span><span class="led"></span>ollama · llama3.1:8b</span><span>demo guionizada</span></div>
+      <div class="cabeza-demo"><span><span class="led"></span>ollama · llama3.1:8b</span><span>scripted demo</span></div>
       <div class="chat" aria-live="polite"></div>
       <div class="sugerencias">${ESCENAS.map((s, i) => `<button type="button" data-i="${i}">${s.boton}</button>`).join("")}</div>`;
     const chat = el.querySelector(".chat");
@@ -179,12 +179,12 @@
     const LINEAS = [
       {
         campos: "(shot: text-frame | text: 'STATUS QUO BIAS')",
-        voz: "A esto se le llama sesgo del statu quo.",
+        voz: "This is called status quo bias.",
         svg: () => `<text x="160" y="100" text-anchor="middle" class="aparece-svg" style="font:800 27px Inter,system-ui,sans-serif;fill:#111;--retraso:.1s">STATUS QUO BIAS</text>`,
       },
       {
         campos: "(shot: diagram | left: question-mark | right: lightbulb | arrow: right yellow)",
-        voz: "Y todo empieza con una pregunta.",
+        voz: "And it all starts with a question.",
         svg: () => `
           <path class="trazo" style="--l:150" d="M76 66 q0 -22 22 -22 q22 0 22 20 q0 14 -16 20 q-6 3 -6 15" fill="none" stroke="#1b1b1b" stroke-width="5" stroke-linecap="round"/>
           <circle class="aparece-svg" style="--retraso:.7s" cx="98" cy="114" r="4" fill="#1b1b1b"/>
@@ -198,7 +198,7 @@
       },
       {
         campos: "(shot: medium | char: 1, curious | pose: thinking | bg: plain-white)",
-        voz: "¿Y si lo de siempre no es lo mejor?",
+        voz: "What if the usual way isn't the best?",
         svg: () => `
           <path class="trazo" style="--l:200;--d:.6s" d="M40 160 H280" stroke="#8a6a4a" stroke-width="2" stroke-linecap="round"/>
           <circle class="trazo" style="--l:120" cx="160" cy="50" r="19" fill="none" stroke="#1b1b1b" stroke-width="4"/>
@@ -214,13 +214,13 @@
           <text x="196" y="40" class="aparece-svg" style="font:700 26px Inter,sans-serif;fill:#1b1b1b;--retraso:1.3s">?</text>`,
       },
     ];
-    const ETAPAS = ["voz", "imagen", "subtítulos", "montaje"];
+    const ETAPAS = ["voice", "image", "subtitles", "assembly"];
     const pintaCampos = (t) => t.replace(/(\w[\w-]*):/g, '<span class="campo">$1:</span>');
 
     el.innerHTML = `
       <div class="guion">${LINEAS.map((l, i) => `<button type="button" data-i="${i}">${pintaCampos(l.campos)}</button>`).join("")}</div>
-      <div class="cabeza-demo"><div class="pipeline">${ETAPAS.map((e) => `<span>${e}</span>`).join("")}</div><span>sintaxis real del guion</span></div>
-      <div class="lienzo"><svg viewBox="0 0 320 180" role="img" aria-label="Fotograma generado"></svg><div class="subtitulo-video"></div></div>
+      <div class="cabeza-demo"><div class="pipeline">${ETAPAS.map((e) => `<span>${e}</span>`).join("")}</div><span>real script syntax</span></div>
+      <div class="lienzo"><svg viewBox="0 0 320 180" role="img" aria-label="Generated frame"></svg><div class="subtitulo-video"></div></div>
       <div class="onda">${"<i></i>".repeat(48)}</div>
       <div class="linea-tiempo"><span class="tiempo">00:00</span><span class="progreso"><i></i></span><span class="salida-v">final_video.mp4</span></div>`;
 

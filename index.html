@@ -1,16 +1,17 @@
 <!doctype html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Jorge García</title>
-  <meta name="description" content="Ciberseguridad, Linux, software libre y machine learning. Proyectos que se pueden tocar: un banco de pruebas de reglas YARA, un asistente que no sale de tu ordenador y un pipeline que convierte un guion en vídeo.">
+  <meta name="description" content="Jorge García, Software Engineering and Cybersecurity student. Cybersecurity, Linux, open source and machine learning. Hands-on projects: a YARA rule test bench, an assistant that never leaves your machine and a pipeline that turns a script into a video.">
   <meta name="color-scheme" content="dark">
   <meta name="theme-color" content="#0b0d12">
   <meta property="og:title" content="Jorge García">
-  <meta property="og:description" content="Ciberseguridad, Linux, software libre y machine learning.">
+  <meta property="og:description" content="Cybersecurity, Linux, open source and machine learning.">
   <meta property="og:image" content="https://jorgeress.github.io/img/og.png">
   <meta property="og:url" content="https://jorgeress.github.io/">
+  <meta property="og:locale" content="en_US">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -26,10 +27,10 @@
   <header class="nav">
     <a class="logo" href="#inicio"><span class="acento">jorge@arch</span> ~</a>
     <nav>
-      <a href="#proyectos">proyectos</a>
-      <a href="#sobre-mi">sobre mí</a>
-      <a href="#contacto">contacto</a>
-      <button class="boton-terminal" type="button" data-abre-terminal aria-label="Abrir terminal">&gt;_</button>
+      <a href="#proyectos">projects</a>
+      <a href="#sobre-mi">about</a>
+      <a href="#contacto">contact</a>
+      <button class="boton-terminal" type="button" data-abre-terminal aria-label="Open terminal">&gt;_</button>
     </nav>
   </header>
 
@@ -39,17 +40,17 @@
         <p class="prompt">~ $ whoami</p>
         <h1>Jorge García</h1>
         <p class="tipo" aria-live="polite"><span class="apagado">$ </span><span id="tipo"></span><span class="cursor" aria-hidden="true"></span></p>
-        <p class="intro">Me gusta la ciberseguridad, Linux, el software libre y el machine learning.</p>
+        <p class="intro">Software Engineering and Cybersecurity student. I'm into malware analysis, Linux, open source and machine learning.</p>
         <div class="acciones">
-          <a class="boton principal" href="#proyectos">Ver proyectos</a>
+          <a class="boton principal" href="#proyectos">See projects</a>
           <a class="boton" href="https://github.com/jorgeress">GitHub</a>
           <button class="boton" type="button" data-abre-cromatoforo aria-haspopup="dialog">
             <span class="muestras" aria-hidden="true"><i></i><i></i><i></i><i></i></span> cromatóforo
           </button>
         </div>
-        <p class="pista">He implementado <a href="https://github.com/jorgeress/cromatoforo">cromatóforo</a> en la página web. Y pulsa <kbd>º</kbd> para abrir mi terminal.</p>
+        <p class="pista">This page runs a mini version of <a href="https://github.com/jorgeress/cromatoforo">cromatóforo</a>: give it an image and it takes its colors. And press <kbd>`</kbd> to open my terminal.</p>
       </div>
-      <figure class="ciclo" id="ciclo" aria-label="Mi forma de trabajar: medir, comparar, automatizar y optimizar, en bucle">
+      <figure class="ciclo" id="ciclo" aria-label="How I work: measure, compare, automate and optimize, in a loop">
         <svg viewBox="-90 0 480 300" aria-hidden="true">
           <defs>
             <marker id="punta" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
@@ -61,111 +62,111 @@
           <path class="arco" data-i="1" d="M 251.5 172.7 A 104 104 0 0 1 172.7 251.5" marker-end="url(#punta)"/>
           <path class="arco" data-i="2" d="M 127.3 251.5 A 104 104 0 0 1 48.5 172.7" marker-end="url(#punta)"/>
           <path class="arco" data-i="3" d="M 48.5 127.3 A 104 104 0 0 1 127.3 48.5" marker-end="url(#punta)"/>
-          <g class="nodo" data-i="0"><circle cx="150" cy="46" r="5"/><text x="150" y="24">medir</text></g>
-          <g class="nodo" data-i="1"><circle cx="254" cy="150" r="5"/><text class="der" x="268" y="155">comparar</text></g>
-          <g class="nodo" data-i="2"><circle cx="150" cy="254" r="5"/><text x="150" y="288">automatizar</text></g>
-          <g class="nodo" data-i="3"><circle cx="46" cy="150" r="5"/><text class="izq" x="32" y="155">optimizar</text></g>
+          <g class="nodo" data-i="0"><circle cx="150" cy="46" r="5"/><text x="150" y="24">measure</text></g>
+          <g class="nodo" data-i="1"><circle cx="254" cy="150" r="5"/><text class="der" x="268" y="155">compare</text></g>
+          <g class="nodo" data-i="2"><circle cx="150" cy="254" r="5"/><text x="150" y="288">automate</text></g>
+          <g class="nodo" data-i="3"><circle cx="46" cy="150" r="5"/><text class="izq" x="32" y="155">optimize</text></g>
         </svg>
       </figure>
     </section>
 
     <section id="proyectos">
-      <h2>Proyectos</h2>
+      <h2>Projects</h2>
 
       <article class="destacado" data-proyecto="crisol">
         <div class="texto">
           <p class="eyebrow">detection engineering</p>
           <h3>Crisol</h3>
-          <p>Cualquiera puede lanzar una regla YARA. Lo difícil es saber cuánto vale: cuántos falsos positivos suelta contra software legítimo y qué detecta de verdad. Crisol lo convierte en un número reproducible.</p>
-          <p>El banco de pruebas midió un <b>12,18 %</b> de falsos positivos sobre 52 binarios legítimos y guió el rediseño regla a regla hasta el <b>0 %</b> sin perder detección. Luego aguantó el 0 % sobre 315.</p>
-          <p class="enlaces"><a href="https://github.com/jorgeress/crisol">código →</a></p>
+          <p>Anyone can run a YARA rule. The hard part is knowing how good it is: how many false positives it throws against legitimate software and what it actually detects. Crisol turns that into a reproducible number.</p>
+          <p>The test bench measured a <b>12.18%</b> false positive rate on 52 legitimate binaries and drove the redesign rule by rule down to <b>0%</b> with no loss of detection. It then held at 0% on 315.</p>
+          <p class="enlaces"><a href="https://github.com/jorgeress/crisol">code →</a></p>
         </div>
-        <div class="demo demo-crisol" id="demo-crisol" aria-label="Demo de Crisol: la misma regla antes y después de afinarla"></div>
+        <div class="demo demo-crisol" id="demo-crisol" aria-label="Crisol demo: the same rule before and after tuning"></div>
       </article>
 
       <article class="destacado invertido" data-proyecto="cibo">
         <div class="texto">
-          <p class="eyebrow">IA en local</p>
+          <p class="eyebrow">local AI</p>
           <h3>CIBO</h3>
-          <p>Un asistente que corre entero en mi ordenador sobre Ollama. Un modelo de 8B es malísimo con los números, así que sabe cuándo delegar en una calculadora real o en un ejecutor de Python en vez de inventarse la respuesta.</p>
-          <p>Y antes de que nada salga a la nube, una capa detecta tarjetas, contraseñas o tokens y obliga a responder en local.</p>
-          <p class="enlaces"><a href="https://github.com/jorgeress/cibo">código →</a></p>
+          <p>An assistant that runs entirely on my machine on top of Ollama. An 8B model is terrible with numbers, so it knows when to hand off to a real calculator or a Python executor instead of making up the answer.</p>
+          <p>And before anything goes to the cloud, a filter catches card numbers, passwords or tokens and forces the answer to stay local.</p>
+          <p class="enlaces"><a href="https://github.com/jorgeress/cibo">code →</a></p>
         </div>
-        <div class="demo demo-cibo" id="demo-cibo" aria-label="Demo guionizada de CIBO"></div>
+        <div class="demo demo-cibo" id="demo-cibo" aria-label="Scripted CIBO demo"></div>
       </article>
 
       <article class="destacado" data-proyecto="garabato">
         <div class="texto">
-          <p class="eyebrow">automatización</p>
+          <p class="eyebrow">automation</p>
           <h3>Garabato</h3>
-          <p>Escribo el guion y sale el vídeo montado. Cada frase lleva delante una línea de campos con vocabulario cerrado, así que la misma línea da siempre el mismo fotograma.</p>
-          <p>Voz, imagen, subtítulos y ensamblado salen solos, y cada paso es idempotente: puedes cortar por la mitad y retomar. Elige una línea del guion.</p>
-          <p class="enlaces"><a href="https://github.com/jorgeress/garabato">código →</a></p>
+          <p>I write the script and out comes the edited video. Each sentence is preceded by a line of fields from a closed vocabulary, so the same line always produces the same frame.</p>
+          <p>Voice, images, subtitles and assembly happen on their own, and every step is idempotent: you can stop halfway and pick up where you left off. Pick a line from the script.</p>
+          <p class="enlaces"><a href="https://github.com/jorgeress/garabato">code →</a></p>
         </div>
-        <div class="demo demo-garabato" id="demo-garabato" aria-label="Demo de Garabato: de una línea de guion a un fotograma"></div>
+        <div class="demo demo-garabato" id="demo-garabato" aria-label="Garabato demo: from a script line to a frame"></div>
       </article>
 
-      <h3 class="subtitulo">Y además</h3>
+      <h3 class="subtitulo">More projects</h3>
       <div class="rejilla" id="rejilla"></div>
     </section>
 
     <section id="sobre-mi">
-      <h2>Sobre mí</h2>
+      <h2>About me</h2>
       <div class="sobre">
         <div class="bloque">
-          <h3>Lo que me interesa</h3>
+          <h3>What I'm into</h3>
           <ul class="chips" id="intereses"></ul>
         </div>
         <div class="bloque">
-          <h3><span class="punto" aria-hidden="true"></span> Aprendiendo ahora</h3>
+          <h3><span class="punto" aria-hidden="true"></span> Currently learning</h3>
           <ul class="lista-ahora">
-            <li><b>Hardening y bastionado</b> de sistemas Linux</li>
-            <li><b>Machine learning</b> más allá de usar modelos hechos</li>
-            <li><b>Rust y Go</b>, lo siguiente en la lista</li>
+            <li><b>Linux system hardening</b></li>
+            <li><b>Machine learning</b> beyond using off-the-shelf models</li>
+            <li><b>Rust and Go</b>, next on the list</li>
           </ul>
         </div>
       </div>
 
-      <h3 class="subtitulo">Con lo que trabajo</h3>
+      <h3 class="subtitulo">What I work with</h3>
       <div class="stack" id="stack"></div>
     </section>
 
     <section id="contacto">
-      <h2>Contacto</h2>
-      <p class="contacto-texto">Si quieres hablar de algún proyecto, de seguridad o de lo que sea, escríbeme.</p>
+      <h2>Contact</h2>
+      <p class="contacto-texto">If you want to talk about a project, security or anything else, drop me a line.</p>
       <div class="acciones">
         <a class="boton principal" href="mailto:jgarciamartinezdev@proton.me">jgarciamartinezdev@proton.me</a>
-        <a class="boton" href="https://www.linkedin.com/in/jorge-garc%C3%ADa-mart%C3%ADnez-1a2574292">LinkedIn</a>
+        <a class="boton" href="https://www.linkedin.com/in/jorgegarciamartinezdev">LinkedIn</a>
         <a class="boton" href="https://github.com/jorgeress">GitHub</a>
       </div>
     </section>
   </main>
 
   <footer>
-    <p>HTML, CSS y un poco de JavaScript, sin frameworks. <a href="https://github.com/jorgeress/jorgeress.github.io">Código</a></p>
+    <p>HTML, CSS and a bit of JavaScript, no frameworks. <a href="https://github.com/jorgeress/jorgeress.github.io">Source</a></p>
   </footer>
 
-  <button class="flotante" type="button" data-abre-cromatoforo aria-label="Abrir cromatóforo">
+  <button class="flotante" type="button" data-abre-cromatoforo aria-label="Open cromatóforo">
     <span class="muestras" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
   </button>
 
   <div class="panel-croma" id="panel-croma" role="dialog" aria-label="Cromatóforo" hidden>
     <div class="cabecera-panel">
       <p><b>cromatóforo</b></p>
-      <button type="button" data-cierra-cromatoforo aria-label="Cerrar">×</button>
+      <button type="button" data-cierra-cromatoforo aria-label="Close">×</button>
     </div>
     <label class="subir" id="subir">
       <input type="file" accept="image/*" id="archivo">
-      <span class="subir-titulo">Sube una imagen</span>
-      <span>y la web toma sus colores. También puedes soltarla en cualquier parte.</span>
-      <small>Se procesa en tu navegador, no sale de tu equipo.</small>
+      <span class="subir-titulo">Upload an image</span>
+      <span>and the page takes its colors. You can also drop it anywhere.</span>
+      <small>It's processed in your browser and never leaves your device.</small>
     </label>
-    <p class="apagado prueba">¿No tienes una a mano? Prueba con:</p>
+    <p class="apagado prueba">Don't have one handy? Try one of these:</p>
     <div class="fondos" id="fondos"></div>
     <div class="wal" aria-live="polite">
       <p class="apagado" id="wal-orden">$ wal --original</p>
       <div class="paleta" id="paleta"></div>
-      <button type="button" class="restaurar" id="restaurar">volver a los colores originales</button>
+      <button type="button" class="restaurar" id="restaurar">back to the original colors</button>
     </div>
   </div>
 
@@ -174,7 +175,7 @@
       <div class="barra">
         <span class="puntos" aria-hidden="true"><i></i><i></i><i></i></span>
         <span>jorge@arch: ~</span>
-        <button type="button" data-cierra-terminal aria-label="Cerrar terminal">×</button>
+        <button type="button" data-cierra-terminal aria-label="Close terminal">×</button>
       </div>
       <div class="salida" id="salida"></div>
       <form class="linea" id="linea" autocomplete="off">

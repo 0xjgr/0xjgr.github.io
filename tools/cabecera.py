@@ -11,9 +11,9 @@ from xml.sax.saxutils import escape
 W, H = 1200, 320
 FRASES = [
     'sudo pacman -Syu',
-    'yara -r reglas/ ./muestras',
+    'yara -r rules/ ./samples',
     'nmap -sV 192.168.1.0/24',
-    'git commit -m "arreglado, creo"',
+    'git commit -m "fixed, I think"',
     'tail -f /var/log/auth.log',
     'chmod 600 ~/.ssh/id_ed25519',
     'docker compose up -d',

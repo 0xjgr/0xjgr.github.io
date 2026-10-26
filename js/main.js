@@ -3,54 +3,54 @@
 window.PROYECTOS = [
   {
     repo: "crisol", nombre: "Crisol", color: "#ff7a45", demo: true,
-    lema: "Motor de triaje estático de malware y banco de pruebas para reglas YARA. Midió un 12,18 % de falsos positivos sobre software legítimo y guió el rediseño hasta el 0 % sin perder detección.",
+    lema: "Static malware triage engine and test bench for YARA rules. It measured a 12.18% false positive rate on legitimate software and drove the redesign down to 0% with no loss of detection.",
     etiquetas: ["Python", "YARA", "pefile", "capstone"],
   },
   {
     repo: "cibo", nombre: "CIBO", color: "#3ddc97", demo: true,
-    lema: "Asistente de IA que corre entero en local sobre Ollama. Sabe cuándo usar una herramienta real en vez de inventarse la respuesta, y no deja salir datos sensibles a la nube.",
+    lema: "AI assistant that runs fully local on Ollama. It knows when to use a real tool instead of making up the answer, and keeps sensitive data from leaking to the cloud.",
     etiquetas: ["Python", "Ollama", "LangChain", "ChromaDB"],
   },
   {
     repo: "garabato", nombre: "Garabato", color: "#ffd23f", demo: true,
-    lema: "Escribes el guion y sale el vídeo montado: voz, imágenes, subtítulos y ensamblado. Cada paso es idempotente.",
+    lema: "You write the script, out comes the edited video: voice, images, subtitles and assembly. Every step is idempotent.",
     etiquetas: ["Python", "PyTorch", "ffmpeg", "TTS"],
   },
   {
     repo: "cromatoforo", nombre: "Cromatóforo", color: "#c792ea",
-    lema: "Un escritorio de Arch donde todo el color sale del wallpaper. Diecinueve programas repintados en la misma pasada desde un único origen.",
+    lema: "An Arch desktop where every color comes from the wallpaper. Nineteen programs repainted in one pass from a single source.",
     etiquetas: ["Hyprland", "Lua", "pywal16", "Shell"],
   },
   {
     repo: "pinchadiscos", nombre: "Pinchadiscos", color: "#ff4fa3",
-    lema: "Playlists de Spotify a medida por artista, género, década y popularidad. OAuth 2.0 con el secreto siempre en el servidor.",
+    lema: "Custom Spotify playlists by artist, genre, decade and popularity. OAuth 2.0 with the secret always kept on the server.",
     etiquetas: ["Next.js", "React", "OAuth 2.0", "Tailwind"],
   },
   {
     repo: "vitrina", nombre: "Vitrina", color: "#8b7bff",
-    lema: "Mi colección de juegos, películas, series, libros y discos, con lo que pienso de cada uno. Se escribe en Obsidian y se publica como web.",
-    etiquetas: ["Obsidian", "TypeScript", "web estática"],
+    lema: "My collection of games, films, TV shows, books and albums, with what I think of each. Written in Obsidian, published as a website.",
+    etiquetas: ["Obsidian", "TypeScript", "static site"],
     web: "https://jorgeress.github.io/vitrina/",
   },
   {
     repo: "pokegan", nombre: "PokeGAN", color: "#ff5a5f",
-    lema: "Una DCGAN entrenada desde cero durante 10.000 épocas para generar sprites de Pokémon que no existen.",
+    lema: "A DCGAN trained from scratch for 10,000 epochs to generate Pokémon sprites that don't exist.",
     etiquetas: ["TensorFlow", "Keras", "DCGAN"],
   },
 ];
 
 window.INTERESES = [
-  "malware", "ciberseguridad", "Linux", "privacidad", "open source",
-  "IA en local", "machine learning", "automatización", "optimización",
+  "malware", "cybersecurity", "Linux", "privacy", "open source",
+  "local AI", "machine learning", "automation", "optimization",
 ];
 
 window.STACK = [
-  { grupo: "Seguridad", items: ["YARA", "pefile", "capstone", "Wireshark", "Burp Suite", "nmap", "Metasploit"] },
-  { grupo: "Sistemas", items: ["Linux", "Arch", "Bash", "C", "C++", "Docker"] },
+  { grupo: "Security", items: ["YARA", "pefile", "capstone", "Wireshark", "Burp Suite", "nmap", "Metasploit"] },
+  { grupo: "Systems", items: ["Linux", "Arch", "Bash", "C", "C++", "Docker"] },
   { grupo: "Backend", items: ["Python", "Node.js", "Express", "JWT", "Java"] },
-  { grupo: "Datos", items: ["PostgreSQL", "SQL", "MongoDB", "Prisma", "Supabase"] },
+  { grupo: "Data", items: ["PostgreSQL", "SQL", "MongoDB", "Prisma", "Supabase"] },
   { grupo: "Frontend", items: ["JavaScript", "TypeScript", "React", "Next.js"] },
-  { grupo: "IA y ML", items: ["PyTorch", "LangChain", "Ollama", "ChromaDB"] },
+  { grupo: "AI and ML", items: ["PyTorch", "LangChain", "Ollama", "ChromaDB"] },
   { grupo: "Cloud", items: ["AWS", "Vercel"] },
 ];
 
@@ -77,9 +77,9 @@ const reducido = window.reducido;
   const el = document.getElementById("tipo");
   const frases = [
     "sudo pacman -Syu",
-    "yara -r reglas/ ./muestras",
+    "yara -r rules/ ./samples",
     "nmap -sV 192.168.1.0/24",
-    'git commit -m "arreglado, creo"',
+    'git commit -m "fixed, I think"',
     "tail -f /var/log/auth.log",
     "chmod 600 ~/.ssh/id_ed25519",
     "docker compose up -d",
@@ -120,10 +120,10 @@ const reducido = window.reducido;
   // ultima actualizacion, en vivo; si la API falla, las tarjetas se quedan sin ella
   const hace = (fecha) => {
     const dias = Math.round((Date.now() - new Date(fecha)) / 864e5);
-    if (dias < 1) return "hoy";
-    if (dias < 30) return `hace ${dias} ${dias === 1 ? "día" : "días"}`;
+    if (dias < 1) return "today";
+    if (dias < 30) return `${dias} ${dias === 1 ? "day" : "days"} ago`;
     const meses = Math.round(dias / 30);
-    return `hace ${meses} ${meses === 1 ? "mes" : "meses"}`;
+    return `${meses} ${meses === 1 ? "month" : "months"} ago`;
   };
   window.hace = hace;
   window.REPOS = fetch("https://api.github.com/users/jorgeress/repos?per_page=100")
@@ -133,7 +133,7 @@ const reducido = window.reducido;
     for (const r of repos) {
       const el = document.querySelector(`[data-meta="${r.name}"]`);
       if (!el) continue;
-      el.textContent = (r.stargazers_count ? `★ ${r.stargazers_count} · ` : "") + `actualizado ${hace(r.pushed_at)}`;
+      el.textContent = (r.stargazers_count ? `★ ${r.stargazers_count} · ` : "") + `updated ${hace(r.pushed_at)}`;
     }
   });
 })();

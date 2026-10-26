@@ -17,12 +17,12 @@ W, H = 640, 400
 
 # cielo arriba, cielo abajo, sol, montañas de lejos a cerca
 PALETAS = {
-    "oceano":    ["#0a1f44", "#1b6ca8", "#bfefff", "#1d4e89", "#12355b", "#071e3d"],
-    "atardecer": ["#2b1055", "#d53369", "#ffd56b", "#ff7b54", "#9d2f5f", "#3d0f3a"],
-    "bosque":    ["#0f2e1d", "#7fb069", "#f1f7c4", "#3f7d46", "#2a5a34", "#10261a"],
-    "desierto":  ["#f6d7a7", "#f3a953", "#fff3d6", "#d9783a", "#a24c22", "#5a2a14"],
-    "neon":      ["#070012", "#3a0ca3", "#00f5d4", "#f72585", "#7209b7", "#1b0033"],
-    "nieve":     ["#c9d6df", "#f0f4f8", "#ffffff", "#9fb3c8", "#6b8299", "#334e68"],
+    "ocean":   ["#0a1f44", "#1b6ca8", "#bfefff", "#1d4e89", "#12355b", "#071e3d"],
+    "sunset":  ["#2b1055", "#d53369", "#ffd56b", "#ff7b54", "#9d2f5f", "#3d0f3a"],
+    "forest":  ["#0f2e1d", "#7fb069", "#f1f7c4", "#3f7d46", "#2a5a34", "#10261a"],
+    "desert":  ["#f6d7a7", "#f3a953", "#fff3d6", "#d9783a", "#a24c22", "#5a2a14"],
+    "neon":    ["#070012", "#3a0ca3", "#00f5d4", "#f72585", "#7209b7", "#1b0033"],
+    "snow":    ["#c9d6df", "#f0f4f8", "#ffffff", "#9fb3c8", "#6b8299", "#334e68"],
 }
 
 

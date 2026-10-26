@@ -27,12 +27,12 @@
     const recursos = performance.getEntriesByType("resource").concat(performance.getEntriesByType("navigation"));
     const kb = recursos.reduce((t, r) => t + (r.transferSize || 0), 0) / 1024;
     const ua = navigator.userAgent;
-    const nav = /Firefox\//.test(ua) ? "Firefox" : /Edg\//.test(ua) ? "Edge" : /Chrome\//.test(ua) ? "Chromium" : /Safari\//.test(ua) ? "Safari" : "otro";
+    const nav = /Firefox\//.test(ua) ? "Firefox" : /Edg\//.test(ua) ? "Edge" : /Chrome\//.test(ua) ? "Chromium" : /Safari\//.test(ua) ? "Safari" : "other";
     const so = /Android/.test(ua) ? "Android" : /iPhone|iPad/.test(ua) ? "iOS" : /Mac OS/.test(ua) ? "macOS" : /Windows/.test(ua) ? "Windows" : /Linux/.test(ua) ? "Linux" : "?";
     const seg = Math.round((performance.now() - inicio) / 1000);
     return {
-      peso: kb > 0 ? `${kb.toFixed(0)} kB transferidos` : "lo que tenga tu caché",
-      visitante: `${nav} en ${so}${so === "Linux" ? " (buena elección)" : ""}`,
+      peso: kb > 0 ? `${kb.toFixed(0)} kB transferred` : "whatever your cache had",
+      visitante: `${nav} on ${so}${so === "Linux" ? " (good choice)" : ""}`,
       pantalla: `${screen.width}x${screen.height} @ ${devicePixelRatio}x`,
       uptime: seg < 60 ? `${seg} s` : `${Math.floor(seg / 60)} min ${seg % 60} s`,
     };
@@ -40,51 +40,51 @@
 
   const ORDENES = {
     help: () => [
-      "órdenes disponibles:",
-      "  whoami            quién soy",
-      "  ls                lista los proyectos",
-      "  cat <proyecto>    de qué va un proyecto",
-      "  open <proyecto>   abre el repo en GitHub",
-      "  wal [wallpaper]   cambia la paleta de la web (sin nada: la siguiente)",
-      "  stack             con lo que trabajo",
-      "  intereses         lo que me tira",
-      "  neofetch          esta web, en una pantalla",
-      "  contacto          cómo escribirme",
-      "  clear             limpia la pantalla",
-      "  exit              cierra la terminal",
+      "available commands:",
+      "  whoami            who I am",
+      "  ls                list the projects",
+      "  cat <project>     what a project is about",
+      "  open <project>    open the repo on GitHub",
+      "  wal [wallpaper]   change the site palette (no argument: the next one)",
+      "  stack             what I work with",
+      "  interests         what I'm into",
+      "  neofetch          this site, on one screen",
+      "  contact           how to reach me",
+      "  clear             clear the screen",
+      "  exit              close the terminal",
     ].join("\n"),
-    whoami: () => "Jorge García.\nMalware, Linux y ciberseguridad. IA que corre en tu equipo.\nSi algo se repite, lo automatizo. A veces se me ocurren cosas.",
+    whoami: () => "Jorge García. Software Engineering and Cybersecurity student.\nMalware, Linux and security. AI that runs on your own machine.\nIf something repeats, I automate it. Sometimes I come up with things.",
     ls: () => window.PROYECTOS
       .map((p) => `<span style="color:${p.color}">${p.repo}/</span>`).join("  "),
     cat: (arg) => {
-      if (!arg) return { err: "cat: falta el proyecto. Prueba: cat crisol" };
+      if (!arg) return { err: "cat: missing project. Try: cat crisol" };
       const p = busca(arg.replace(/\/$/, ""));
-      if (!p) return { err: `cat: ${esc(arg)}: no existe ese proyecto` };
+      if (!p) return { err: `cat: ${esc(arg)}: no such project` };
       return `<b style="color:${p.color}">${p.nombre}</b>\n${p.lema}\n<span class="orden">${p.etiquetas.join(" · ")}</span>`
-        + (p.demo ? `\n<span class="orden">tiene demo en la página: </span><a href="#" data-ve="${p.repo}">ver demo</a>` : "");
+        + (p.demo ? `\n<span class="orden">has a demo on this page: </span><a href="#" data-ve="${p.repo}">see demo</a>` : "");
     },
     open: (arg) => {
       const p = busca(arg?.replace(/\/$/, ""));
-      if (!p) return { err: `open: ${esc(arg || "")}: no existe ese proyecto` };
+      if (!p) return { err: `open: ${esc(arg || "")}: no such project` };
       const url = `https://github.com/jorgeress/${p.repo}`;
       window.open(url, "_blank", "noopener");
-      return `abriendo <a href="${url}" target="_blank" rel="noopener">${url}</a>`;
+      return `opening <a href="${url}" target="_blank" rel="noopener">${url}</a>`;
     },
     wal: (arg) => {
       const lista = window.cromatoforo.fondos();
       const nombre = arg.replace(/^-i\s*/, "").trim();
-      if (nombre === "-l" || nombre === "--list") return `wallpapers: ${lista.join("  ")}\no suelta tu propia imagen en cualquier parte de la página`;
-      if (nombre && !lista.includes(nombre)) return { err: `wal: ${esc(nombre)}: no lo tengo. Hay: ${lista.join(", ")}` };
-      const linea = escribe('<span class="orden">[i] generando paleta…</span>');
+      if (nombre === "-l" || nombre === "--list") return `wallpapers: ${lista.join("  ")}\nor drop your own image anywhere on the page`;
+      if (nombre && !lista.includes(nombre)) return { err: `wal: ${esc(nombre)}: not found. Available: ${lista.join(", ")}` };
+      const linea = escribe('<span class="orden">[i] generating palette…</span>');
       (nombre ? window.cromatoforo.aplica(nombre) : window.cromatoforo.siguiente()).then((n) => {
-        setTimeout(() => { linea.innerHTML = `<span class="ok">[i] paleta: ${esc(n)}</span>  ${bloques()}\n<span class="orden">[i] 1 consumidor repintado: esta web</span>`; }, 800);
+        setTimeout(() => { linea.innerHTML = `<span class="ok">[i] palette: ${esc(n)}</span>  ${bloques()}\n<span class="orden">[i] 1 consumer repainted: this site</span>`; }, 800);
       });
       return null;
     },
     stack: () => window.STACK.map((g) => `<b>${g.grupo.padEnd(10)}</b> ${g.items.join(" · ")}`).join("\n"),
-    intereses: () => window.INTERESES.join(" · ") + "\n<span class=\"orden\">ahora: hardening y bastionado, ML, y después Rust y Go</span>",
-    contacto: () => '<a href="mailto:jgarciamartinezdev@proton.me">jgarciamartinezdev@proton.me</a>\n'
-      + '<a href="https://www.linkedin.com/in/jorge-garc%C3%ADa-mart%C3%ADnez-1a2574292" target="_blank" rel="noopener">linkedin</a>  '
+    interests: () => window.INTERESES.join(" · ") + "\n<span class=\"orden\">now: Linux hardening, ML, then Rust and Go</span>",
+    contact: () => '<a href="mailto:jgarciamartinezdev@proton.me">jgarciamartinezdev@proton.me</a>\n'
+      + '<a href="https://www.linkedin.com/in/jorgegarciamartinezdev" target="_blank" rel="noopener">linkedin</a>  '
       + '<a href="https://github.com/jorgeress" target="_blank" rel="noopener">github</a>',
     neofetch: () => {
       const d = datosWeb();
@@ -97,15 +97,15 @@
         "     |_____|  ",
       ];
       const lineas = [
-        '<span class="ok">visitante</span>@<span class="ok">jorgeress.github.io</span>',
+        '<span class="ok">visitor</span>@<span class="ok">jorgeress.github.io</span>',
         "------------------------------",
         `<b>Host</b>: GitHub Pages`,
         `<b>Web</b>: HTML + CSS + JS, 0 frameworks`,
-        `<b>Peso</b>: ${d.peso}`,
-        `<b>Paleta</b>: ${esc(window.cromatoforo.actual())}`,
-        `<b>Proyectos</b>: ${window.PROYECTOS.length}`,
-        `<b>Tú</b>: ${d.visitante}, ${d.pantalla}`,
-        `<b>Uptime</b>: ${d.uptime} en esta pestaña`,
+        `<b>Size</b>: ${d.peso}`,
+        `<b>Palette</b>: ${esc(window.cromatoforo.actual())}`,
+        `<b>Projects</b>: ${window.PROYECTOS.length}`,
+        `<b>You</b>: ${d.visitante}, ${d.pantalla}`,
+        `<b>Uptime</b>: ${d.uptime} in this tab`,
         "",
         bloques(),
       ];
@@ -114,15 +114,17 @@
       // la fecha del ultimo despliegue llega de la API, cuando llegue
       window.REPOS.then((repos) => {
         const r = repos.find((x) => x.name === "jorgeress.github.io");
-        if (r) escribe(`<span class="orden">${salida.clientWidth < 560 ? "" : " ".repeat(14)}</span><b>Último cambio</b>: ${window.hace(r.pushed_at)}`);
+        if (r) escribe(`<span class="orden">${salida.clientWidth < 560 ? "" : " ".repeat(14)}</span><b>Last deploy</b>: ${window.hace(r.pushed_at)}`);
       });
       return salidaHtml;
     },
-    sudo: () => ({ err: "jorge no está en el fichero sudoers. Este incidente será reportado." }),
+    sudo: () => ({ err: "jorge is not in the sudoers file. This incident will be reported." }),
     clear: () => { salida.innerHTML = ""; return null; },
     exit: () => { cierra(); return null; },
   };
   ORDENES.ayuda = ORDENES.help;
+  ORDENES.intereses = ORDENES.interests;
+  ORDENES.contacto = ORDENES.contact;
   ORDENES.dir = ORDENES.ls;
 
   function ejecuta(linea) {
@@ -130,7 +132,7 @@
     const [orden, ...args] = linea.trim().split(/\s+/);
     if (!orden) return;
     const f = ORDENES[orden.toLowerCase()];
-    if (!f) return escribe(`${esc(orden)}: orden no encontrada. Escribe <b>help</b>.`, "err");
+    if (!f) return escribe(`${esc(orden)}: command not found. Type <b>help</b>.`, "err");
     const r = f(args.join(" "));
     if (r == null) return;
     if (typeof r === "string") escribe(r);
@@ -142,7 +144,7 @@
     if (!caja.hidden) return;
     anterior = document.activeElement;
     caja.hidden = false;
-    if (!salida.childElementCount) escribe("Bienvenido. Escribe <b>help</b> para ver qué puedes hacer.", "ok");
+    if (!salida.childElementCount) escribe("Welcome. Type <b>help</b> to see what you can do.", "ok");
     input.focus();
   }
   function cierra() {

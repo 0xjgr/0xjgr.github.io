@@ -106,16 +106,16 @@ def v_crisol(c):
         f'<text x="720" y="236" font-family="{MONO}" font-size="19" fill="{APAGADO}">}}</text>'
     )
     barras = (
-        f'<text x="720" y="320" font-family="{SANS}" font-size="20" fill="{APAGADO}">falsos positivos sobre 52 binarios legítimos</text>'
-        f'<text x="720" y="364" font-family="{MONO}" font-size="17" fill="{APAGADO}">antes</text>'
+        f'<text x="720" y="320" font-family="{SANS}" font-size="20" fill="{APAGADO}">false positives on 52 legitimate binaries</text>'
+        f'<text x="720" y="364" font-family="{MONO}" font-size="17" fill="{APAGADO}">before</text>'
         f'<rect x="800" y="346" width="300" height="24" rx="6" fill="#ff5a5f" fill-opacity=".85"/>'
-        f'<text x="1112" y="365" font-family="{MONO}" font-weight="bold" font-size="22" fill="#ff8a8d">12,18 %</text>'
-        f'<text x="720" y="414" font-family="{MONO}" font-size="17" fill="{APAGADO}">después</text>'
+        f'<text x="1112" y="365" font-family="{MONO}" font-weight="bold" font-size="22" fill="#ff8a8d">12.18%</text>'
+        f'<text x="720" y="414" font-family="{MONO}" font-size="17" fill="{APAGADO}">after</text>'
         f'<rect x="800" y="396" width="4" height="24" rx="2" fill="{c}"/>'
-        f'<text x="816" y="415" font-family="{MONO}" font-weight="bold" font-size="22" fill="{c}">0 %</text>'
-        f'<text x="720" y="470" font-family="{SANS}" font-size="20" fill="{TEXTO}">sin perder detección</text>'
+        f'<text x="816" y="415" font-family="{MONO}" font-weight="bold" font-size="22" fill="{c}">0%</text>'
+        f'<text x="720" y="470" font-family="{SANS}" font-size="20" fill="{TEXTO}">with no loss of detection</text>'
     )
-    return ventana(690, 80, 520, 440, "reglas.yar") + yara + barras
+    return ventana(690, 80, 520, 440, "rules.yar") + yara + barras
 
 
 def v_cromatoforo(c):
@@ -144,19 +144,19 @@ def v_cromatoforo(c):
 
 def v_cibo(c):
     l = [
-        (f'<tspan fill="{c}">tú ›</tspan> cuánto es 4817 * 2963', 150),
-        (f'<tspan fill="{APAGADO}">  ⚙ herramienta: Calculator</tspan>', 192),
-        (f'<tspan fill="#c678dd">cibo ›</tspan> 14.272.771', 234),
-        (f'<tspan fill="{c}">tú ›</tspan> resume mi informe.pdf', 300),
-        (f'<tspan fill="{APAGADO}">  🔒 datos sensibles: se queda en local</tspan>', 342),
-        (f'<tspan fill="#c678dd">cibo ›</tspan> el informe trata de…', 384),
+        (f'<tspan fill="{c}">you ›</tspan> what is 4817 * 2963', 150),
+        (f'<tspan fill="{APAGADO}">  ⚙ tool: Calculator</tspan>', 192),
+        (f'<tspan fill="#c678dd">cibo ›</tspan> 14,272,771', 234),
+        (f'<tspan fill="{c}">you ›</tspan> summarize my report.pdf', 300),
+        (f'<tspan fill="{APAGADO}">  🔒 sensitive data: stays local</tspan>', 342),
+        (f'<tspan fill="#c678dd">cibo ›</tspan> the report is about…', 384),
     ]
     txt = "".join(
         f'<text x="722" y="{y}" font-family="{MONO}" font-size="20" fill="{TEXTO}">{t}</text>' for t, y in l
     )
     pie = (
         f'<circle cx="730" cy="476" r="6" fill="{c}"/>'
-        f'<text x="746" y="482" font-family="{MONO}" font-size="17" fill="{APAGADO}">ollama · llama3.1:8b · sin salir del equipo</text>'
+        f'<text x="746" y="482" font-family="{MONO}" font-size="17" fill="{APAGADO}">ollama · llama3.1:8b · fully local</text>'
     )
     return ventana(690, 90, 520, 430, "cibo") + txt + f'<line x1="690" y1="440" x2="1210" y2="440" stroke="#232a37"/>' + pie
 
@@ -175,7 +175,7 @@ def v_pinchadiscos(c):
         f'<text x="{cx}" y="{cy - 22}" text-anchor="middle" font-family="{MONO}" font-weight="bold" font-size="15" fill="{FONDO}">PINCHA</text>'
         f'<text x="{cx}" y="{cy + 36}" text-anchor="middle" font-family="{MONO}" font-weight="bold" font-size="15" fill="{FONDO}">DISCOS</text>'
     )
-    fil = ["década: 90s", "género: rock", "popularidad ≥ 60"]
+    fil = ["decade: 90s", "genre: rock", "popularity ≥ 60"]
     fichas = ""
     for i, f in enumerate(fil):
         y = 120 + i * 62
@@ -210,7 +210,7 @@ def v_garabato(c):
         tira += f'<rect x="{x}" y="410" width="80" height="56" rx="6" fill="#151a24" stroke="#262b36"/>'
     tira += (
         f'<rect x="690" y="396" width="530" height="84" rx="8" fill="none" stroke="{c}" stroke-opacity=".35" stroke-dasharray="6 8"/>'
-        f'<text x="690" y="520" font-family="{MONO}" font-size="17" fill="{APAGADO}">voz → imágenes → subtítulos → final_video.mp4</text>'
+        f'<text x="690" y="520" font-family="{MONO}" font-size="17" fill="{APAGADO}">voice → images → subtitles → final_video.mp4</text>'
     )
     return guion + flecha + marco + tira
 
@@ -235,7 +235,7 @@ def v_vitrina(c):
             f'<image href="{d}" x="{x}" y="{y}" width="{w}" height="{h}" clip-path="url(#p{i})" preserveAspectRatio="xMidYMid slice"/>'
             "</g>"
         )
-    return "".join(out) + f'<text x="1220" y="590" text-anchor="end" font-family="{MONO}" font-size="17" fill="{APAGADO}">215 obras · 5 salas</text>'
+    return "".join(out) + f'<text x="1220" y="590" text-anchor="end" font-family="{MONO}" font-size="17" fill="{APAGADO}">215 works · 5 rooms</text>'
 
 
 def v_pokegan(c):
@@ -247,9 +247,9 @@ def v_pokegan(c):
         f'<image href="{b}" x="950" y="110" width="280" height="280" clip-path="url(#eb)"/>'
         f'<rect x="700" y="130" width="240" height="240" rx="12" fill="none" stroke="#ffffff30"/>'
         f'<rect x="970" y="130" width="240" height="240" rx="12" fill="none" stroke="{c}" stroke-width="3"/>'
-        f'<text x="820" y="410" text-anchor="middle" font-family="{MONO}" font-size="19" fill="{APAGADO}">época 100</text>'
-        f'<text x="1090" y="410" text-anchor="middle" font-family="{MONO}" font-size="19" fill="{c}">época 5000</text>'
-        f'<text x="955" y="480" text-anchor="middle" font-family="{SANS}" font-size="20" fill="{APAGADO}">ruido de 100 dimensiones → sprite de 64×64</text>'
+        f'<text x="820" y="410" text-anchor="middle" font-family="{MONO}" font-size="19" fill="{APAGADO}">epoch 100</text>'
+        f'<text x="1090" y="410" text-anchor="middle" font-family="{MONO}" font-size="19" fill="{c}">epoch 5000</text>'
+        f'<text x="955" y="480" text-anchor="middle" font-family="{SANS}" font-size="20" fill="{APAGADO}">100-dim noise → 64×64 sprite</text>'
     )
 
 
@@ -257,45 +257,45 @@ def v_pokegan(c):
 PROYECTOS = {
     "crisol": dict(
         color="#ff7a45",
-        lema="Triaje estático de malware y banco de pruebas para reglas YARA. Cuánto vale una regla, medido.",
+        lema="Static malware triage and a test bench for YARA rules. How good a rule is, measured.",
         chips=["Python", "YARA", "detection engineering"],
         visual=v_crisol,
     ),
     "cromatoforo": dict(
         nombre="cromatóforo",
         color="#c792ea",
-        lema="El escritorio toma su color del wallpaper. Hyprland sobre Arch, tematizado entero con pywal16.",
+        lema="The desktop takes its colors from the wallpaper. Hyprland on Arch, fully themed with pywal16.",
         chips=["Hyprland", "Lua", "pywal16", "Shell"],
         visual=v_cromatoforo,
     ),
     "cibo": dict(
         color="#3ddc97",
-        lema="Un asistente que corre entero en tu ordenador y sabe cuándo usar una herramienta en vez de inventarse la respuesta.",
+        lema="A fully local assistant that knows when to use a tool instead of making up the answer.",
         chips=["Python", "Ollama", "ChromaDB"],
         visual=v_cibo,
     ),
     "pinchadiscos": dict(
         color="#ff4fa3",
-        lema="Playlists de Spotify a medida: filtras por artista, género, década y popularidad y la guardas en tu cuenta.",
+        lema="Custom Spotify playlists: filter by artist, genre, decade and popularity, then save it to your account.",
         chips=["Next.js", "React", "OAuth 2.0", "Tailwind"],
         visual=v_pinchadiscos,
     ),
     "garabato": dict(
         color="#ffd23f",
-        lema="Escribes el guion, sale el vídeo montado: voz, imágenes, subtítulos y ensamblado final.",
+        lema="You write the script, out comes the edited video: voice, images, subtitles and final assembly.",
         chips=["Python", "ffmpeg", "TTS", "Pillow"],
         visual=v_garabato,
     ),
     "vitrina": dict(
         color="#8b7bff",
-        lema="Mi colección de juegos, películas, libros y discos. Se escribe en Obsidian y se publica como web.",
-        chips=["Obsidian", "TypeScript", "web estática"],
+        lema="My collection of games, films, books and albums. Written in Obsidian, published as a website.",
+        chips=["Obsidian", "TypeScript", "static site"],
         visual=v_vitrina,
     ),
     "pokegan": dict(
         nombre="PokeGAN",
         color="#ff5a5f",
-        lema="Una DCGAN entrenada desde cero durante 10.000 épocas para generar Pokémon que no existen.",
+        lema="A DCGAN trained from scratch for 10,000 epochs to generate Pokémon that don't exist.",
         chips=["TensorFlow", "Keras", "DCGAN"],
         visual=v_pokegan,
     ),

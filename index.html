@@ -4,11 +4,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Jorge García</title>
-  <meta name="description" content="Jorge García, Software Engineering and Cybersecurity student. Cybersecurity, Linux, open source and machine learning. Hands-on projects: a YARA rule test bench, an assistant that never leaves your machine and a pipeline that turns a script into a video.">
+  <meta name="description" content="Jorge García, software engineer. I build security layers for AI agents and measure them: Timo stops a bill-paying agent from paying scammers, Paperweight stops printed text from steering a robot. Also YARA detection, local AI and Linux.">
   <meta name="color-scheme" content="dark">
   <meta name="theme-color" content="#0b0d12">
   <meta property="og:title" content="Jorge García">
-  <meta property="og:description" content="Cybersecurity, Linux, open source and machine learning.">
+  <meta property="og:description" content="I build security layers for AI agents, and measure them.">
   <meta property="og:image" content="https://jorgeress.github.io/img/og.png">
   <meta property="og:url" content="https://jorgeress.github.io/">
   <meta property="og:locale" content="en_US">
@@ -40,7 +40,7 @@
         <p class="prompt">~ $ whoami</p>
         <h1>Jorge García</h1>
         <p class="tipo" aria-live="polite"><span class="apagado">$ </span><span id="tipo"></span><span class="cursor" aria-hidden="true"></span></p>
-        <p class="intro">Software Engineering and Cybersecurity student. I'm into malware analysis, Linux, open source and machine learning.</p>
+        <p class="intro">I build security layers for AI agents, and measure them: policies outside the model that decide what an agent may do, tested against real attacks. Also malware detection, Linux and open source.</p>
         <div class="acciones">
           <a class="boton principal" href="#proyectos">See projects</a>
           <a class="boton" href="https://github.com/jorgeress">GitHub</a>
@@ -72,6 +72,28 @@
 
     <section id="proyectos">
       <h2>Projects</h2>
+
+      <article class="destacado" data-proyecto="timo">
+        <div class="texto">
+          <p class="eyebrow">agent security · Meta hackathon</p>
+          <h3>Timo</h3>
+          <p>An agent that pays bills reads untrusted mail on the way. In the first test, a fake invoice that only swapped the IBAN made it pay the attacker 7 times out of 9, and the model's own injection check never fired: there was no instruction to detect, only a wrong number.</p>
+          <p>Timo traces every value the agent types back to where it came from: what the user said, the household's ledger, or something it read. At the submit click, eleven deterministic rules judge the whole form. Over 179 attacked errands, the attacker got paid <b>25 of 89</b> times with the agent alone and <b>0 of 90</b> with Timo, with no legitimate errand blocked. Pick an errand.</p>
+          <p class="enlaces"><a href="https://github.com/jorgeress/timo">code →</a> &nbsp; <a href="https://jorgeress.github.io/timo/">replays of real errands →</a></p>
+        </div>
+        <div class="demo demo-timo" id="demo-timo" aria-label="Timo demo: the same errand with and without Timo"></div>
+      </article>
+
+      <article class="destacado invertido" data-proyecto="paperweight">
+        <div class="texto">
+          <p class="eyebrow">physical AI security · Nebius x NVIDIA hackathon</p>
+          <h3>Paperweight</h3>
+          <p>A note in a robot's camera view can redirect a robot driven by a vision model. The usual defense, masking all text, also stops it from reading labels: on real parcel photos it sorted 0 of 14 legitimate parcels.</p>
+          <p>In Paperweight every action cites the observation each value came from, and seven deterministic rules check those citations before anything reaches the Arduino. On 60 synthetic attacks, success drops from <b>90%</b> to <b>0%</b> with all 50 legitimate labels still read right, and none of <b>159,325</b> actions forged by an adaptive attacker reached the station. Pick a parcel.</p>
+          <p class="enlaces"><a href="https://github.com/jorgeress/paperweight">code →</a></p>
+        </div>
+        <div class="demo demo-paper" id="demo-paper" aria-label="Paperweight demo: a parcel with a planted note, with and without Paperweight"></div>
+      </article>
 
       <article class="destacado" data-proyecto="crisol">
         <div class="texto">
@@ -118,10 +140,10 @@
           <ul class="chips" id="intereses"></ul>
         </div>
         <div class="bloque">
-          <h3><span class="punto" aria-hidden="true"></span> Currently learning</h3>
+          <h3><span class="punto" aria-hidden="true"></span> Currently working on</h3>
           <ul class="lista-ahora">
             <li><b>Linux system hardening</b></li>
-            <li><b>Machine learning</b> beyond using off-the-shelf models</li>
+            <li><b>Agent security</b>: provenance policies that hold even when the model is fooled</li>
             <li><b>Rust and Go</b>, next on the list</li>
           </ul>
         </div>

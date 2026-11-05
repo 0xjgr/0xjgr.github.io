@@ -53,7 +53,7 @@
       "  clear             clear the screen",
       "  exit              close the terminal",
     ].join("\n"),
-    whoami: () => "Jorge García. Software Engineering and Cybersecurity student.\nMalware, Linux and security. AI that runs on your own machine.\nIf something repeats, I automate it. Sometimes I come up with things.",
+    whoami: () => "Jorge García. Software engineer.\nSecurity layers for AI agents, measured against real attacks.\nMalware, Linux and AI that runs on your own machine.\nIf something repeats, I automate it.",
     ls: () => window.PROYECTOS
       .map((p) => `<span style="color:${p.color}">${p.repo}/</span>`).join("  "),
     cat: (arg) => {

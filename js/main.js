@@ -1,5 +1,5 @@
 // Datos de los proyectos: los usan las tarjetas y la terminal.
-// Los tres primeros tienen demo propia en la pagina; el resto va en tarjetas.
+// Los que tienen demo: true salen en grande con su demo; el resto va en tarjetas.
 window.PROYECTOS = [
   {
     repo: "crisol", nombre: "Crisol", color: "#ff7a45", demo: true,
@@ -15,6 +15,16 @@ window.PROYECTOS = [
     repo: "garabato", nombre: "Garabato", color: "#ffd23f", demo: true,
     lema: "You write the script, out comes the edited video: voice, images, subtitles and assembly. Every step is idempotent.",
     etiquetas: ["Python", "PyTorch", "ffmpeg", "TTS"],
+  },
+  {
+    repo: "paperweight", nombre: "Paperweight", color: "#76b900", demo: true,
+    lema: "A piece of paper shouldn't be able to command your robot. Every action a vision model sends to a real robot cites where its values came from, and seven deterministic rules check them first. Attack success drops from 90% to 0% with every legitimate parcel still sorted.",
+    etiquetas: ["Python", "FastAPI", "Nemotron", "Arduino"],
+  },
+  {
+    repo: "timo", nombre: "Timo", color: "#4aa3ff", demo: true,
+    lema: "Errand agent that pays bills for people who can't spot a scam. A firewall checks where every IBAN and amount came from before money moves: the attacker gets paid 25 of 89 times with the agent alone and 0 of 90 with Timo.",
+    etiquetas: ["TypeScript", "Playwright", "Muse Spark", "agents"],
   },
   {
     repo: "cromatoforo", nombre: "Cromatóforo", color: "#c792ea",
@@ -47,9 +57,9 @@ window.INTERESES = [
 window.STACK = [
   { grupo: "Security", items: ["YARA", "pefile", "capstone", "Wireshark", "Burp Suite", "nmap", "Metasploit"] },
   { grupo: "Systems", items: ["Linux", "Arch", "Bash", "C", "C++", "Docker"] },
-  { grupo: "Backend", items: ["Python", "Node.js", "Express", "JWT", "Java"] },
+  { grupo: "Backend", items: ["Python", "FastAPI", "Node.js", "Express", "JWT", "Java"] },
   { grupo: "Data", items: ["PostgreSQL", "SQL", "MongoDB", "Prisma", "Supabase"] },
-  { grupo: "Frontend", items: ["JavaScript", "TypeScript", "React", "Next.js"] },
+  { grupo: "Frontend", items: ["JavaScript", "TypeScript", "React", "Next.js", "Playwright"] },
   { grupo: "AI and ML", items: ["PyTorch", "LangChain", "Ollama", "ChromaDB"] },
   { grupo: "Cloud", items: ["AWS", "Vercel"] },
 ];
@@ -79,14 +89,14 @@ const reducido = window.reducido;
     "sudo pacman -Syu",
     "yara -r rules/ ./samples",
     "nmap -sV 192.168.1.0/24",
-    'git commit -m "fixed, I think"',
     "tail -f /var/log/auth.log",
     "chmod 600 ~/.ssh/id_ed25519",
     "docker compose up -d",
     "ollama run llama3.1",
     "wal -i wallpaper.jpg",
     "make && ./a.out",
-    "rm -rf node_modules && npm i",
+    "npm run errand -- --scenario swap",
+    "uv run pytest",
     ":wq",
   ];
   if (reducido) { el.textContent = frases[0]; return; }

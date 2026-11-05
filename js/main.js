@@ -67,21 +67,6 @@ window.STACK = [
 window.reducido = matchMedia("(prefers-reduced-motion: reduce)").matches;
 const reducido = window.reducido;
 
-// --- ciclo del hero: medir > comparar > automatizar > optimizar ---
-(() => {
-  const ciclo = document.getElementById("ciclo");
-  const nodos = ciclo.querySelectorAll(".nodo");
-  const arcos = ciclo.querySelectorAll(".arco");
-  let i = 0;
-  const marca = () => {
-    nodos.forEach((n, k) => n.classList.toggle("activo", k === i));
-    arcos.forEach((a, k) => a.classList.toggle("activo", k === i));
-  };
-  marca();
-  if (reducido) return;
-  setInterval(() => { i = (i + 1) % nodos.length; marca(); }, 1600);
-})();
-
 // --- linea que se escribe sola ---
 (() => {
   const el = document.getElementById("tipo");

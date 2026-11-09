@@ -325,7 +325,7 @@ def svg(repo, p):
 <rect width="{W}" height="{H}" fill="{FONDO}"/>
 <rect width="{W}" height="{H}" fill="url(#glow)"/>
 {puntos}
-<text x="80" y="128" font-family="{MONO}" font-size="24" fill="{APAGADO}">jorgeress /</text>
+<text x="80" y="128" font-family="{MONO}" font-size="24" fill="{APAGADO}">0xjgr /</text>
 <text x="80" y="{150 + tam}" font-family="{MONO}" font-weight="bold" font-size="{tam}" fill="{TEXTO}">{escape(nombre)}</text>
 <rect x="82" y="{176 + tam}" width="72" height="6" rx="3" fill="{c}"/>
 {lema}

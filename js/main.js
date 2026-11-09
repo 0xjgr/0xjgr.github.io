@@ -40,7 +40,7 @@ window.PROYECTOS = [
     repo: "vitrina", nombre: "Vitrina", color: "#8b7bff",
     lema: "My collection of games, films, TV shows, books and albums, with what I think of each. Written in Obsidian, published as a website.",
     etiquetas: ["Obsidian", "TypeScript", "static site"],
-    web: "https://jorgeress.github.io/vitrina/",
+    web: "https://0xjgr.github.io/vitrina/",
   },
   {
     repo: "pokegan", nombre: "PokeGAN", color: "#ff5a5f",
@@ -103,7 +103,7 @@ const reducido = window.reducido;
   for (const p of window.PROYECTOS.filter((p) => !p.demo)) {
     const a = document.createElement("a");
     a.className = "tarjeta aparece";
-    a.href = p.web || `https://github.com/jorgeress/${p.repo}`;
+    a.href = p.web || `https://github.com/0xjgr/${p.repo}`;
     a.innerHTML = `
       <h4>${p.nombre}<span aria-hidden="true">→</span></h4>
       <p>${p.lema}</p>
@@ -121,7 +121,7 @@ const reducido = window.reducido;
     return `${meses} ${meses === 1 ? "month" : "months"} ago`;
   };
   window.hace = hace;
-  window.REPOS = fetch("https://api.github.com/users/jorgeress/repos?per_page=100")
+  window.REPOS = fetch("https://api.github.com/users/0xjgr/repos?per_page=100")
     .then((r) => (r.ok ? r.json() : []))
     .catch(() => []);
   window.REPOS.then((repos) => {

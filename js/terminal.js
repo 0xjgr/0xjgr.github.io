@@ -66,7 +66,7 @@
     open: (arg) => {
       const p = busca(arg?.replace(/\/$/, ""));
       if (!p) return { err: `open: ${esc(arg || "")}: no such project` };
-      const url = `https://github.com/jorgeress/${p.repo}`;
+      const url = `https://github.com/0xjgr/${p.repo}`;
       window.open(url, "_blank", "noopener");
       return `opening <a href="${url}" target="_blank" rel="noopener">${url}</a>`;
     },
@@ -85,7 +85,7 @@
     interests: () => window.INTERESES.join(" · ") + "\n<span class=\"orden\">now: Linux hardening, ML, then Rust and Go</span>",
     contact: () => '<a href="mailto:jgarciamartinezdev@proton.me">jgarciamartinezdev@proton.me</a>\n'
       + '<a href="https://www.linkedin.com/in/jorgegarciamartinezdev" target="_blank" rel="noopener">linkedin</a>  '
-      + '<a href="https://github.com/jorgeress" target="_blank" rel="noopener">github</a>',
+      + '<a href="https://github.com/0xjgr" target="_blank" rel="noopener">github</a>',
     neofetch: () => {
       const d = datosWeb();
       const logo = [
@@ -97,7 +97,7 @@
         "     |_____|  ",
       ];
       const lineas = [
-        '<span class="ok">visitor</span>@<span class="ok">jorgeress.github.io</span>',
+        '<span class="ok">visitor</span>@<span class="ok">0xjgr.github.io</span>',
         "------------------------------",
         `<b>Host</b>: GitHub Pages`,
         `<b>Web</b>: HTML + CSS + JS, 0 frameworks`,
@@ -113,7 +113,7 @@
       const salidaHtml = lineas.map((l, i) => (estrecha ? "" : `<span style="color:var(--c2)">${esc(logo[i] || "              ")}</span>`) + l).join("\n");
       // la fecha del ultimo despliegue llega de la API, cuando llegue
       window.REPOS.then((repos) => {
-        const r = repos.find((x) => x.name === "jorgeress.github.io");
+        const r = repos.find((x) => x.name === "0xjgr.github.io");
         if (r) escribe(`<span class="orden">${salida.clientWidth < 560 ? "" : " ".repeat(14)}</span><b>Last deploy</b>: ${window.hace(r.pushed_at)}`);
       });
       return salidaHtml;

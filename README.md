@@ -1,6 +1,6 @@
-# jorgeress.github.io
+# 0xjgr.github.io
 
-My website: [jorgeress.github.io](https://jorgeress.github.io).
+My website: [0xjgr.github.io](https://0xjgr.github.io).
 
 HTML, CSS and JavaScript with no frameworks and no build step: GitHub Pages
 serves the `main` branch as is.

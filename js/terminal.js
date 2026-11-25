@@ -1,15 +1,20 @@
-// Terminal de juguete: se abre con º o ` (o con el boton >_ de arriba).
+// Terminal embebida en la cabecera: escribe whoami, hace clear y deja un menu
+// de ordenes clicables que llevan a cada seccion. Tambien se puede escribir.
 (() => {
-  const caja = document.getElementById("terminal");
+  const term = document.getElementById("term");
   const salida = document.getElementById("salida");
   const form = document.getElementById("linea");
   const input = document.getElementById("orden");
+  const reducido = window.reducido;
   const historial = [];
   let pos = 0;
-  let anterior = null;
+  let saltar = false;
+  let enIntro = false;
   const inicio = performance.now();
 
+  const PROMPT = '<span class="acento">jorge@arch</span> ~ $ ';
   const esc = (s) => s.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
+  const dormir = (ms) => new Promise((ok) => setTimeout(ok, saltar ? 0 : ms));
   const escribe = (html, clase = "") => {
     const p = document.createElement("div");
     if (clase) p.className = clase;
@@ -20,115 +25,87 @@
   };
   const busca = (nombre) => window.PROYECTOS
     .find((p) => p.repo === nombre?.toLowerCase() || p.nombre.toLowerCase() === nombre?.toLowerCase());
-  const bloques = () => `<span class="bloques">${window.cromatoforo.colores().map((c) => `<i style="background:${c}"></i>`).join("")}</span>`;
+  const ve = (id) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: reducido ? "auto" : "smooth", block: "start" });
+  };
 
-  // datos de la propia web, para neofetch
-  function datosWeb() {
-    const recursos = performance.getEntriesByType("resource").concat(performance.getEntriesByType("navigation"));
-    const kb = recursos.reduce((t, r) => t + (r.transferSize || 0), 0) / 1024;
-    const ua = navigator.userAgent;
-    const nav = /Firefox\//.test(ua) ? "Firefox" : /Edg\//.test(ua) ? "Edge" : /Chrome\//.test(ua) ? "Chromium" : /Safari\//.test(ua) ? "Safari" : "other";
-    const so = /Android/.test(ua) ? "Android" : /iPhone|iPad/.test(ua) ? "iOS" : /Mac OS/.test(ua) ? "macOS" : /Windows/.test(ua) ? "Windows" : /Linux/.test(ua) ? "Linux" : "?";
-    const seg = Math.round((performance.now() - inicio) / 1000);
-    return {
-      peso: kb > 0 ? `${kb.toFixed(0)} kB transferred` : "whatever your cache had",
-      visitante: `${nav} on ${so}${so === "Linux" ? " (good choice)" : ""}`,
-      pantalla: `${screen.width}x${screen.height} @ ${devicePixelRatio}x`,
-      uptime: seg < 60 ? `${seg} s` : `${Math.floor(seg / 60)} min ${seg % 60} s`,
-    };
-  }
+  // orden del menu, a donde lleva y que dice
+  const MENU = [
+    ["projects", "proyectos", "what I've built, open one to see it run"],
+    ["more", "mas", "smaller projects"],
+    ["about", "sobre-mi", "what I work on and with"],
+    ["contact", "contacto", "write to me"],
+  ];
+
+  const menu = () => `<div class="t-inicio">
+    <div class="t-nombre">Jorge García</div>
+    <div class="t-rol">Software engineering student, final year. Into cybersecurity and AI.</div>
+    <ul class="t-menu">${MENU.map(([o, , d]) => `
+      <li><button type="button" data-orden="${o}"><span class="t-o">${o}</span><span class="t-d">${d}</span></button></li>`).join("")}
+    </ul>
+    <div class="t-pista">Click one, or type <b>help</b>.</div></div>`;
+
+  const SECCIONES = Object.fromEntries(MENU.map(([o, id]) => [o, id]));
 
   const ORDENES = {
     help: () => [
       "available commands:",
-      "  whoami            who I am",
-      "  ls                list the projects",
-      "  cat <project>     what a project is about",
-      "  open <project>    open the repo on GitHub",
-      "  wal [wallpaper]   change the site palette (no argument: the next one)",
-      "  stack             what I work with",
-      "  interests         what I'm into",
-      "  neofetch          this site, on one screen",
-      "  contact           how to reach me",
-      "  clear             clear the screen",
-      "  exit              close the terminal",
+      ...MENU.map(([o, , d]) => `  ${o.padEnd(16)}${d}`),
+      "  ls              list every project",
+      "  cat <project>   what a project is about",
+      "  open <project>  open the repo on GitHub",
+      "  stack           what I work with",
+      "  neofetch        this site, on one screen",
+      "  clear           back to the menu",
     ].join("\n"),
-    whoami: () => "Jorge García. Software engineer.\nSecurity layers for AI agents, measured against real attacks.\nMalware, Linux and AI that runs on your own machine.\nIf something repeats, I automate it.",
-    ls: () => window.PROYECTOS
-      .map((p) => `<span style="color:${p.color}">${p.repo}/</span>`).join("  "),
+    whoami: () => "Jorge García. Final-year software engineering student.\nInto cybersecurity and AI: guards for AI agents, malware detection, local AI.",
+    ls: () => window.PROYECTOS.map((p) => `<span class="ok">${p.repo}/</span>`).join("  "),
     cat: (arg) => {
-      if (!arg) return { err: "cat: missing project. Try: cat crisol" };
+      if (!arg) return { err: "cat: missing project. Try: cat timo" };
       const p = busca(arg.replace(/\/$/, ""));
       if (!p) return { err: `cat: ${esc(arg)}: no such project` };
-      return `<b style="color:${p.color}">${p.nombre}</b>\n${p.lema}\n<span class="orden">${p.etiquetas.join(" · ")}</span>`
-        + (p.demo ? `\n<span class="orden">has a demo on this page: </span><a href="#" data-ve="${p.repo}">see demo</a>` : "");
+      return `<b>${p.nombre}</b>\n${p.lema}\n<span class="orden">${p.etiquetas.join(", ")}</span>`
+        + (document.querySelector(`[data-proyecto="${p.repo}"]`) ? `\n<a href="#" data-ve="${p.repo}">open it on this page</a>` : "");
     },
     open: (arg) => {
       const p = busca(arg?.replace(/\/$/, ""));
       if (!p) return { err: `open: ${esc(arg || "")}: no such project` };
-      const url = `https://github.com/0xjgr/${p.repo}`;
+      const url = p.web || `https://github.com/0xjgr/${p.repo}`;
       window.open(url, "_blank", "noopener");
       return `opening <a href="${url}" target="_blank" rel="noopener">${url}</a>`;
     },
-    wal: (arg) => {
-      const lista = window.cromatoforo.fondos();
-      const nombre = arg.replace(/^-i\s*/, "").trim();
-      if (nombre === "-l" || nombre === "--list") return `wallpapers: ${lista.join("  ")}\nor drop your own image anywhere on the page`;
-      if (nombre && !lista.includes(nombre)) return { err: `wal: ${esc(nombre)}: not found. Available: ${lista.join(", ")}` };
-      const linea = escribe('<span class="orden">[i] generating palette…</span>');
-      (nombre ? window.cromatoforo.aplica(nombre) : window.cromatoforo.siguiente()).then((n) => {
-        setTimeout(() => { linea.innerHTML = `<span class="ok">[i] palette: ${esc(n)}</span>  ${bloques()}\n<span class="orden">[i] 1 consumer repainted: this site</span>`; }, 800);
-      });
-      return null;
+    cd: (arg) => {
+      const id = SECCIONES[arg?.replace(/^[~/.]+/, "")];
+      if (!id) return { err: `cd: ${esc(arg || "")}: no such section. Try: ${MENU.map((m) => m[0]).join(", ")}` };
+      ve(id);
+      return `<span class="orden">→ ${esc(arg)}</span>`;
     },
-    stack: () => window.STACK.map((g) => `<b>${g.grupo.padEnd(10)}</b> ${g.items.join(" · ")}`).join("\n"),
-    interests: () => window.INTERESES.join(" · ") + "\n<span class=\"orden\">now: Linux hardening, ML, then Rust and Go</span>",
-    contact: () => '<a href="mailto:jgarciamartinezdev@proton.me">jgarciamartinezdev@proton.me</a>\n'
-      + '<a href="https://www.linkedin.com/in/jorgegarciamartinezdev" target="_blank" rel="noopener">linkedin</a>  '
-      + '<a href="https://github.com/0xjgr" target="_blank" rel="noopener">github</a>',
+    stack: () => window.STACK.map((g) => `<b>${g.grupo.padEnd(10)}</b> ${g.items.join(", ")}`).join("\n"),
     neofetch: () => {
-      const d = datosWeb();
-      const logo = [
-        " __           ",
-        " \\ \\          ",
-        "  \\ \\         ",
-        "  / /         ",
-        " /_/  _____   ",
-        "     |_____|  ",
-      ];
-      const lineas = [
+      const recursos = performance.getEntriesByType("resource").concat(performance.getEntriesByType("navigation"));
+      const kb = recursos.reduce((t, r) => t + (r.transferSize || 0), 0) / 1024;
+      const seg = Math.round((performance.now() - inicio) / 1000);
+      return [
         '<span class="ok">visitor</span>@<span class="ok">0xjgr.github.io</span>',
         "------------------------------",
-        `<b>Host</b>: GitHub Pages`,
-        `<b>Web</b>: HTML + CSS + JS, 0 frameworks`,
-        `<b>Size</b>: ${d.peso}`,
-        `<b>Palette</b>: ${esc(window.cromatoforo.actual())}`,
+        "<b>Host</b>: GitHub Pages",
+        "<b>Web</b>: HTML + CSS + JS, 0 frameworks",
+        `<b>Size</b>: ${kb > 0 ? `${kb.toFixed(0)} kB transferred` : "whatever your cache had"}`,
         `<b>Projects</b>: ${window.PROYECTOS.length}`,
-        `<b>You</b>: ${d.visitante}, ${d.pantalla}`,
-        `<b>Uptime</b>: ${d.uptime} in this tab`,
-        "",
-        bloques(),
-      ];
-      const estrecha = salida.clientWidth < 560;
-      const salidaHtml = lineas.map((l, i) => (estrecha ? "" : `<span style="color:var(--c2)">${esc(logo[i] || "              ")}</span>`) + l).join("\n");
-      // la fecha del ultimo despliegue llega de la API, cuando llegue
-      window.REPOS.then((repos) => {
-        const r = repos.find((x) => x.name === "0xjgr.github.io");
-        if (r) escribe(`<span class="orden">${salida.clientWidth < 560 ? "" : " ".repeat(14)}</span><b>Last deploy</b>: ${window.hace(r.pushed_at)}`);
-      });
-      return salidaHtml;
+        `<b>Uptime</b>: ${seg < 60 ? `${seg} s` : `${Math.floor(seg / 60)} min`} in this tab`,
+      ].join("\n");
     },
     sudo: () => ({ err: "jorge is not in the sudoers file. This incident will be reported." }),
-    clear: () => { salida.innerHTML = ""; return null; },
-    exit: () => { cierra(); return null; },
+    clear: () => { salida.innerHTML = menu(); return null; },
   };
-  ORDENES.ayuda = ORDENES.help;
-  ORDENES.intereses = ORDENES.interests;
-  ORDENES.contacto = ORDENES.contact;
-  ORDENES.dir = ORDENES.ls;
+  ORDENES.github = () => {
+    window.open("https://github.com/0xjgr", "_blank", "noopener");
+    return 'opening <a href="https://github.com/0xjgr" target="_blank" rel="noopener">github.com/0xjgr</a>';
+  };
+  for (const [o] of MENU) ORDENES[o] = () => ORDENES.cd(o);
 
   function ejecuta(linea) {
-    escribe(`<span class="acento">jorge@arch</span> ~ $ ${esc(linea)}`, "orden");
+    escribe(PROMPT + esc(linea), "orden");
     const [orden, ...args] = linea.trim().split(/\s+/);
     if (!orden) return;
     const f = ORDENES[orden.toLowerCase()];
@@ -137,27 +114,52 @@
     if (r == null) return;
     if (typeof r === "string") escribe(r);
     else if (r.err) escribe(r.err, "err");
-    else if (r.ok) escribe(r.ok, "ok");
   }
 
-  function abre() {
-    if (!caja.hidden) return;
-    anterior = document.activeElement;
-    caja.hidden = false;
-    if (!salida.childElementCount) escribe("Welcome. Type <b>help</b> to see what you can do.", "ok");
-    input.focus();
+  // --- la intro: whoami, clear, menu ---
+  async function teclea(texto) {
+    const linea = escribe(PROMPT + '<span class="tecleo"></span><span class="cursor"></span>', "orden");
+    const t = linea.querySelector(".tecleo");
+    await dormir(380);
+    for (const c of texto) {
+      t.textContent += c;
+      await dormir(70 + Math.random() * 50);
+    }
+    await dormir(260);
+    linea.querySelector(".cursor").remove();
   }
-  function cierra() {
-    caja.hidden = true;
-    anterior?.focus?.();
+
+  async function intro() {
+    if (enIntro) return;
+    enIntro = true;
+    saltar = reducido;
+    salida.innerHTML = "";
+    term.classList.add("en-intro");
+    await teclea("whoami");
+    escribe('<span class="t-nombre-intro">Jorge García</span>');
+    await dormir(140);
+    escribe('<span class="orden">software engineering student, into security and AI</span>');
+    await dormir(1100);
+    await teclea("clear");
+    salida.innerHTML = menu();
+    salida.querySelector(".t-menu").classList.add("entra");
+    term.classList.remove("en-intro");
+    enIntro = false;
   }
+  window.terminalIntro = intro;
+
+  // cualquier tecla o clic durante la intro la termina al momento
+  const corta = () => { if (enIntro) saltar = true; };
+  term.addEventListener("pointerdown", corta);
+  document.addEventListener("keydown", corta, { capture: true });
 
   salida.addEventListener("click", (e) => {
+    const b = e.target.closest("[data-orden]");
+    if (b) { ejecuta(b.dataset.orden); return; }
     const a = e.target.closest("[data-ve]");
     if (!a) return;
     e.preventDefault();
-    cierra();
-    document.querySelector(`[data-proyecto="${a.dataset.ve}"]`)?.scrollIntoView({ behavior: "smooth", block: "center" });
+    if (!window.abreProyecto?.(a.dataset.ve)) document.querySelector(`[data-proyecto="${a.dataset.ve}"]`)?.scrollIntoView({ behavior: reducido ? "auto" : "smooth", block: "center" });
   });
 
   form.addEventListener("submit", (e) => {
@@ -166,6 +168,7 @@
     if (v.trim()) historial.push(v);
     pos = historial.length;
     input.value = "";
+    if (enIntro) saltar = true;
     ejecuta(v);
   });
 
@@ -176,24 +179,25 @@
       e.preventDefault();
       const [o, a] = input.value.split(/\s+/);
       if (a !== undefined) {
-        const opciones = o === "wal" ? window.cromatoforo.fondos() : window.PROYECTOS.map((p) => p.repo);
+        const opciones = o === "cd" ? MENU.map((m) => m[0]) : window.PROYECTOS.map((p) => p.repo);
         const m = opciones.find((x) => x.startsWith(a.toLowerCase()));
         if (m) input.value = `${o} ${m}`;
       } else {
         const m = Object.keys(ORDENES).find((k) => k.startsWith(o.toLowerCase()));
         if (m) input.value = m + " ";
       }
-    } else if (e.key === "l" && e.ctrlKey) { e.preventDefault(); salida.innerHTML = ""; }
+    } else if (e.key === "l" && e.ctrlKey) { e.preventDefault(); ORDENES.clear(); }
   });
 
+  // ` o º: ir a la terminal desde cualquier sitio
   document.addEventListener("keydown", (e) => {
-    const enOtroCampo = /^(INPUT|TEXTAREA)$/.test(document.activeElement?.tagName) && document.activeElement !== input;
+    const enOtroCampo = /^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement?.tagName) && document.activeElement !== input;
     if ((e.key === "`" || e.key === "º") && !enOtroCampo) {
       e.preventDefault();
-      caja.hidden ? abre() : cierra();
-    } else if (e.key === "Escape" && !caja.hidden) cierra();
+      term.scrollIntoView({ behavior: reducido ? "auto" : "smooth", block: "center" });
+      input.focus({ preventScroll: true });
+    }
   });
-  document.querySelectorAll("[data-abre-terminal]").forEach((b) => b.addEventListener("click", abre));
-  document.querySelectorAll("[data-cierra-terminal]").forEach((b) => b.addEventListener("click", cierra));
-  caja.addEventListener("click", (e) => { if (e.target === caja) cierra(); });
+
+  intro();
 })();

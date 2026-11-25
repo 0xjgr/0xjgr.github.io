@@ -1,0 +1,184 @@
+WEBVTT
+
+1
+00:00:00.780 --> 00:00:03.700
+These two emails are the same power bill.
+
+2
+00:00:04.800 --> 00:00:06.400
+One of them is a scam.
+
+3
+00:00:06.800 --> 00:00:10.120
+Carmen is 74.
+She will never spot it.
+
+4
+00:00:10.280 --> 00:00:12.900
+We gave Muse Spark
+her inbox and her bank.
+
+5
+00:00:13.460 --> 00:00:17.160
+It paid the scammer
+25 times out of 89.
+
+6
+00:00:18.240 --> 00:00:23.760
+Americans over 60 reported $7.7 billion
+lost to fraud last year.
+
+7
+00:00:24.600 --> 00:00:26.400
+Now agents pay their bills.
+
+8
+00:00:26.520 --> 00:00:31.020
+This is Timo. It sits between
+the agent and the money.
+
+9
+00:00:31.760 --> 00:00:37.000
+It doesn't ask whether an email looks suspicious.
+It asks where each number came from.
+
+10
+00:00:37.720 --> 00:00:42.400
+The payee, the account and the amount
+must trace back to Carmen's own words,
+
+11
+00:00:42.660 --> 00:00:44.900
+or to the people she already pays.
+
+12
+00:00:45.680 --> 00:00:49.020
+A number that only came from an email
+can't move money.
+
+13
+00:00:50.080 --> 00:00:51.200
+Here's Carmen.
+
+14
+00:00:51.540 --> 00:00:55.080
+Carmen: "Timo, pay the October power bill."
+
+15
+00:00:55.800 --> 00:00:59.720
+The agent opens the fake email,
+and types the scammer's account.
+
+16
+00:01:03.380 --> 00:01:07.360
+Timo stops the click.
+Carmen pays Lumen a different account.
+
+17
+00:01:07.600 --> 00:01:09.300
+No money moves.
+
+18
+00:01:09.740 --> 00:01:15.400
+So the agent goes back, finds the real bill
+on Lumen's own site, and pays the right account.
+
+19
+00:01:17.100 --> 00:01:21.900
+Phone: "Done. Timo paid 84.20 euros
+to Lumen Energy S.A."
+
+20
+00:01:22.200 --> 00:01:27.000
+"Timo also stopped a payment to an account
+that was not theirs. Here is what happened."
+
+21
+00:01:27.340 --> 00:01:29.500
+A new account isn't always an attack.
+
+22
+00:01:29.780 --> 00:01:32.200
+Her plumber sends his first invoice.
+
+23
+00:01:32.960 --> 00:01:36.400
+Timo can't trace it, so it holds
+the money and asks her daughter.
+
+24
+00:01:36.760 --> 00:01:41.400
+Ana calls him on a number she already had,
+and approves with one tap.
+
+25
+00:01:42.240 --> 00:01:44.900
+That's the only time Timo asks a person.
+
+26
+00:01:47.380 --> 00:01:50.900
+We wrote nine new attacks
+after freezing the rules.
+
+27
+00:01:51.480 --> 00:01:54.500
+One hides the account
+in a photo of a letter.
+
+28
+00:01:55.100 --> 00:01:58.400
+Pixels trace to nothing Carmen said,
+so it stops.
+
+29
+00:01:58.940 --> 00:02:05.600
+Then we gave Muse Wonder Timo's source code,
+and let it attack, learning from every verdict.
+
+30
+00:02:06.660 --> 00:02:12.000
+Its best trick: a hacked company mailbox
+that asks for the real bill, twice.
+
+31
+00:02:12.700 --> 00:02:18.200
+The first payment goes through.
+The second goes to Ana, and she declines it.
+
+32
+00:02:22.100 --> 00:02:24.600
+Every hole it found, we fixed.
+
+33
+00:02:25.100 --> 00:02:27.900
+On the final rules, it never won once.
+
+34
+00:02:28.600 --> 00:02:33.400
+Without Timo, the agent paid the scammer
+25 times out of 89.
+
+35
+00:02:33.880 --> 00:02:36.700
+With Timo, zero out of ninety.
+
+36
+00:02:37.460 --> 00:02:39.800
+Zero on attacks we never tuned for.
+
+37
+00:02:40.200 --> 00:02:42.800
+And every real bill still got paid.
+
+38
+00:02:43.500 --> 00:02:48.900
+Every verdict is written to a hash-chained log,
+so the family can check what happened.
+
+39
+00:02:49.700 --> 00:02:51.600
+Models catch the scam that shouts.
+
+40
+00:02:52.020 --> 00:02:55.200
+Timo catches the one that whispers.

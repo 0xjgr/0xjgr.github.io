@@ -4,11 +4,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Jorge García</title>
-  <meta name="description" content="Jorge García, software engineer. I build security layers for AI agents and measure them: Timo stops a bill-paying agent from paying scammers, Paperweight stops printed text from steering a robot. Also YARA detection, local AI and Linux.">
+  <meta name="description" content="Jorge García, final-year software engineering student into cybersecurity and AI. Projects: guards for AI agents built at hackathons and tested against real attacks, YARA detection, local AI.">
   <meta name="color-scheme" content="dark">
-  <meta name="theme-color" content="#0b0d12">
+  <meta name="theme-color" content="#17191c">
   <meta property="og:title" content="Jorge García">
-  <meta property="og:description" content="I build security layers for AI agents, and measure them.">
+  <meta property="og:description" content="Final-year software engineering student into cybersecurity and AI. Projects you can try.">
   <meta property="og:image" content="https://0xjgr.github.io/img/og.png">
   <meta property="og:url" content="https://0xjgr.github.io/">
   <meta property="og:locale" content="en_US">
@@ -16,177 +16,313 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/estilo.css">
-  <script src="js/main.js" defer></script>
-  <script src="js/cromatoforo.js" defer></script>
-  <script src="js/demos.js" defer></script>
-  <script src="js/terminal.js" defer></script>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/estilo.css?v=9">
+  <script src="js/main.js?v=9" defer></script>
+  <script src="js/demos.js?v=9" defer></script>
+  <script src="js/terminal.js?v=9" defer></script>
+  <script src="js/proyectos.js?v=9" defer></script>
+  <script src="js/lateral.js?v=9" defer></script>
+  <!-- provisional: panel para probar combinaciones; se quita al elegir -->
 </head>
 <body>
+  <div class="fx" aria-hidden="true"><i class="fx-vineta"></i></div>
+
   <header class="nav">
-    <a class="logo" href="#inicio"><span class="acento">jorge@arch</span> ~</a>
+    <a class="logo" href="#inicio">Jorge García</a>
     <nav>
       <a href="#proyectos">projects</a>
       <a href="#sobre-mi">about</a>
       <a href="#contacto">contact</a>
-      <button class="boton-terminal" type="button" data-abre-terminal aria-label="Open terminal">&gt;_</button>
     </nav>
   </header>
 
-  <main>
-    <section id="inicio" class="hero">
-      <div class="hero-texto">
-        <p class="prompt">~ $ whoami</p>
-        <h1>Jorge García</h1>
-        <p class="tipo" aria-live="polite"><span class="apagado">$ </span><span id="tipo"></span><span class="cursor" aria-hidden="true"></span></p>
-        <p class="intro">I build security layers for AI agents, and measure them: policies outside the model that decide what an agent may do, tested against real attacks. Also malware detection, Linux and open source.</p>
-        <div class="acciones">
-          <a class="boton principal" href="#proyectos">See projects</a>
-          <a class="boton" href="https://github.com/0xjgr">GitHub</a>
-          <button class="boton" type="button" data-abre-cromatoforo aria-haspopup="dialog">
-            <span class="muestras" aria-hidden="true"><i></i><i></i><i></i><i></i></span> cromatóforo
-          </button>
+  <section class="hero" id="inicio">
+    <div class="term" id="term">
+      <div class="term-barra"><span class="puntos-ventana" aria-hidden="true"><i></i><i></i><i></i></span><span>jorge@arch: ~</span></div>
+      <div class="term-salida" id="salida" aria-live="polite"></div>
+      <form class="term-linea" id="linea" autocomplete="off">
+        <label for="orden"><span class="acento">jorge@arch</span> ~ $</label>
+        <input id="orden" spellcheck="false" autocapitalize="off" aria-label="Type a command, or help">
+      </form>
+    </div>
+    <a class="bajar" href="#proyectos" aria-label="Scroll to the projects">scroll</a>
+  </section>
+
+  <div class="marco">
+    <aside class="lateral">
+      <div class="lat-term" aria-label="Sections">
+        <div class="term-barra"><span class="puntos-ventana" aria-hidden="true"><i></i><i></i><i></i></span><span>jorge@arch: <span class="lat-ruta">~/projects</span></span></div>
+        <div class="lat-cuerpo">
+          <p class="lat-nombre"><a href="#inicio">Jorge García</a></p>
+          <p class="lat-rol">Software engineering student, final year. Into cybersecurity and AI.</p>
+          <nav class="lat-nav" aria-label="Sections">
+            <a href="#proyectos">projects</a>
+            <a href="#mas">more</a>
+            <a href="#sobre-mi">about</a>
+            <a href="#contacto">contact</a>
+          </nav>
+          <a class="lat-volver" href="#inicio"><span class="acento">jorge@arch</span> ~ $ <span class="cursor" aria-hidden="true"></span></a>
         </div>
-        <p class="pista">This page runs a mini version of <a href="https://github.com/0xjgr/cromatoforo">cromatóforo</a>: give it an image and it takes its colors. And press <kbd>`</kbd> to open my terminal.</p>
+      </div>
+      <p class="lat-enlaces"><a href="https://github.com/0xjgr">GitHub</a> <a href="https://www.linkedin.com/in/jorgegarciamartinezdev">LinkedIn</a> <a href="mailto:jgarciamartinezdev@proton.me">Email</a></p>
+    </aside>
+
+  <main>
+    <section id="proyectos" class="tesis">
+      <h1>Software engineer in my last year, getting into security and AI.</h1>
+      <p class="intro">My latest projects are around one question: <b>what should an AI agent be allowed to do with text it can't trust?</b> Each one is tested against real attacks. Open one to see it running.</p>
+
+
+      <div class="rejilla-p">
+
+        <article class="proyecto" id="paperweight" data-proyecto="paperweight">
+          <div class="p-tarjeta">
+            <img class="p-mini" src="media/paperweight-2.webp" alt="" loading="lazy">
+            <h3><button class="p-abrir" type="button" aria-expanded="false" aria-controls="det-paperweight">Paperweight</button></h3>
+            <p class="p-contexto">Nebius x NVIDIA hackathon, Oct 2026</p>
+            <p class="p-gancho">A note in the camera's view shouldn't be able to steer a robot.</p>
+            <p class="p-cifra">attacks through <span class="mal">54/60</span> without, <span class="bien">0/60</span> with</p>
+          </div>
+          <div class="p-detalle" id="det-paperweight" hidden>
+            <header class="p-cab">
+              <div><h3 class="p-cab-t">Paperweight</h3><p class="p-contexto">Nebius x NVIDIA hackathon, Physical AI track, October 2026</p></div>
+              <p class="enlaces p-enlaces"><a class="boton-enlace principal" href="https://github.com/0xjgr/paperweight">Check the code <span aria-hidden="true">→</span></a></p>
+              <button class="p-cerrar" type="button">close</button>
+            </header>
+            <div class="p-cuerpo">
+              <div class="p-medio galeria">
+                <p class="p-etiqueta real"><b>Photos of the real robot</b></p>
+                <img class="g-grande" src="media/paperweight-2.webp" alt="The real robot: a vision model reads the parcel label, the console shows the decision">
+                <div class="g-minis">
+                  <button type="button" aria-pressed="false"><img src="media/paperweight-1.webp" alt="Title card: a piece of paper can't command this robot" loading="lazy"></button>
+                  <button type="button" aria-pressed="true"><img src="media/paperweight-2.webp" alt="No defense: the robot obeys the note and picks bin B" loading="lazy"></button>
+                  <button type="button" aria-pressed="false"><img src="media/paperweight-3.webp" alt="With Paperweight: same parcel, label says Madrid, bin A" loading="lazy"></button>
+                  <button type="button" aria-pressed="false"><img src="media/paperweight-4.webp" alt="Hijacked planner forges a citation, the rules hold it" loading="lazy"></button>
+                  <button type="button" aria-pressed="false"><img src="media/paperweight-5.webp" alt="A fake operator override sheet is denied" loading="lazy"></button>
+                  <button type="button" aria-pressed="false"><img src="media/paperweight-6.webp" alt="Results on 34 real photos" loading="lazy"></button>
+                </div>
+              </div>
+              <dl class="p-claves">
+                <div><dt>The attack</dt><dd>A handwritten note in view tells the vision model which bin to use. Hiding all text stops it, but then the robot can't read labels either.</dd></div>
+                <div><dt>The guard</dt><dd>Each action has to <b>cite what it saw</b>. Seven fixed rules check those citations before anything reaches the Arduino.</dd></div>
+                <div><dt>Result</dt><dd>Attacks through: <b>90% to 0%</b>, and every legitimate label still read right. On 34 real photos, 0 of 17 attacks got through.</dd></div>
+              </dl>
+              <div class="p-prueba">
+                <div class="p-prueba-t"><p class="p-etiqueta recreacion"><b>Interactive recreation</b></p><p>A simplified version of the real check, running in your browser. Pick a parcel and switch the guard on and off.</p></div>
+                <div class="demo demo-paper" id="demo-paper" aria-label="Paperweight demo: a parcel with a planted note, with and without Paperweight"></div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="proyecto" id="hearsay" data-proyecto="hearsay" data-previa="media/hearsay-prev.mp4">
+          <div class="p-tarjeta">
+            <img class="p-mini" src="media/hearsay.webp" alt="" loading="lazy">
+            <h3><button class="p-abrir" type="button" aria-expanded="false" aria-controls="det-hearsay">Hearsay</button></h3>
+            <p class="p-contexto">For PayPal merchants</p>
+            <p class="p-gancho">A buyer shouldn't be able to talk the store's agent into a refund.</p>
+            <p class="p-cifra">attacks through <span class="mal">54/56</span> without, <span class="bien">0/56</span> with</p>
+          </div>
+          <div class="p-detalle" id="det-hearsay" hidden>
+            <header class="p-cab">
+              <div><h3 class="p-cab-t">Hearsay</h3><p class="p-contexto">A dispute desk for PayPal merchants</p></div>
+              <p class="enlaces p-enlaces"><a class="boton-enlace principal" href="https://github.com/0xjgr/hearsay">Check the code <span aria-hidden="true">→</span></a> <a class="boton-enlace" href="https://hearsay-bench.onrender.com">Write your own attack <span aria-hidden="true">→</span></a></p>
+              <button class="p-cerrar" type="button">close</button>
+            </header>
+            <div class="p-cuerpo">
+              <div class="p-medio">
+                <p class="p-etiqueta real"><b>The real project, recorded</b></p>
+                <video controls preload="none" playsinline poster="media/hearsay.webp">
+                  <source src="media/hearsay.mp4" type="video/mp4">
+                  <track kind="captions" src="media/hearsay.en.vtt" srclang="en" label="English">
+                </video>
+              </div>
+              <dl class="p-claves">
+                <div><dt>The attack</dt><dd>The buyer writes instructions into the dispute. PayPal's API returns that text without saying who wrote it.</dd></div>
+                <div><dt>The guard</dt><dd>Every value is <b>tagged with its author</b>: PayPal, the store or the buyer. Ten fixed rules judge each proposal by those tags.</dd></div>
+                <div><dt>Result</dt><dd>A plain toolkit agent let <b>54 of 56</b> attacks reach PayPal. Behind Hearsay, <b>none</b>. Two real sandbox disputes resolved through it.</dd></div>
+              </dl>
+              <div class="p-prueba">
+                <div class="p-prueba-t"><p class="p-etiqueta real"><b>Measured results</b></p><p>The same 79 cases, qwen3:8b on the PayPal Agent Toolkit. To try an attack yourself, use the live bench linked above.</p></div>
+                <div class="demo">
+                  <table class="tabla-demo">
+                    <thead>
+                      <tr><th scope="col"></th><th scope="col" class="num">Agent alone</th><th scope="col" class="num">Behind Hearsay</th></tr>
+                    </thead>
+                    <tbody>
+                      <tr><th scope="row">Attacks the agent obeyed</th><td class="num">54 of 56</td><td class="num">56 of 56</td></tr>
+                      <tr><th scope="row">Attacks that reached PayPal</th><td class="num mal">54 of 56</td><td class="num bien">0 of 56</td></tr>
+                      <tr><th scope="row">Refunds paid where the store owed nothing</th><td class="num mal">10 of 10</td><td class="num bien">0 of 10</td></tr>
+                      <tr><th scope="row">Owed refunds paid on its own</th><td class="num">12 of 13</td><td class="num">10 of 13</td></tr>
+                    </tbody>
+                  </table>
+                  <p class="pie-demo">The agent still tries every attack. What changes is that none of them is executed.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="proyecto" id="timo" data-proyecto="timo" data-previa="media/timo-prev.mp4">
+          <div class="p-tarjeta">
+            <img class="p-mini" src="media/timo.webp" alt="" loading="lazy">
+            <h3><button class="p-abrir" type="button" aria-expanded="false" aria-controls="det-timo">Timo</button></h3>
+            <p class="p-contexto">Meta AI hackathon, Oct 2026</p>
+            <p class="p-gancho">An agent that pays bills, and a fake invoice that only swaps the IBAN.</p>
+            <p class="p-cifra">scammer paid <span class="mal">25/89</span> without, <span class="bien">0/90</span> with</p>
+          </div>
+          <div class="p-detalle" id="det-timo" hidden>
+            <header class="p-cab">
+              <div><h3 class="p-cab-t">Timo</h3><p class="p-contexto">Meta Global AI Developer Hackathon, October 26 to November 4, 2026</p></div>
+              <p class="enlaces p-enlaces"><a class="boton-enlace principal" href="https://github.com/0xjgr/timo">Check the code <span aria-hidden="true">→</span></a> <a class="boton-enlace" href="https://0xjgr.github.io/timo/">Replays of real errands <span aria-hidden="true">→</span></a></p>
+              <button class="p-cerrar" type="button">close</button>
+            </header>
+            <div class="p-cuerpo">
+              <div class="p-medio">
+                <p class="p-etiqueta real"><b>The real project, recorded</b></p>
+                <video controls preload="none" playsinline poster="media/timo.webp">
+                  <source src="media/timo.mp4" type="video/mp4">
+                  <track kind="captions" src="media/timo.en.vtt" srclang="en" label="English">
+                </video>
+              </div>
+              <dl class="p-claves">
+                <div><dt>The attack</dt><dd>A fake invoice that changes only the account number. There's no instruction to detect, so the model's own check never fires.</dd></div>
+                <div><dt>The guard</dt><dd>Every value typed into the payment form <b>traces back to its source</b>: the user's words, the household's ledger, or an email. Eleven rules check the form at the submit click.</dd></div>
+                <div><dt>Result</dt><dd>The scammer got paid <b>25 of 89</b> times with the agent alone and <b>0 of 90</b> with Timo. No real bill was blocked.</dd></div>
+              </dl>
+              <div class="p-prueba">
+                <div class="p-prueba-t"><p class="p-etiqueta recreacion"><b>Interactive recreation</b></p><p>A simplified version of the real errand, running in your browser. Pick an errand and switch Timo on and off.</p></div>
+                <div class="demo demo-timo" id="demo-timo" aria-label="Timo demo: the same errand with and without Timo"></div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="proyecto" id="crisol" data-proyecto="crisol">
+          <div class="p-tarjeta">
+            <img class="p-mini" src="media/crisol-cartel.webp" alt="" loading="lazy">
+            <h3><button class="p-abrir" type="button" aria-expanded="false" aria-controls="det-crisol">Crisol</button></h3>
+            <p class="p-contexto">Malware detection, YARA</p>
+            <p class="p-gancho">How good is a YARA rule? A test bench that turns that into a number.</p>
+            <p class="p-cifra">false positives <span class="mal">12.18%</span> before, <span class="bien">0%</span> after</p>
+          </div>
+          <div class="p-detalle" id="det-crisol" hidden>
+            <header class="p-cab">
+              <div><h3 class="p-cab-t">Crisol</h3><p class="p-contexto">Static malware triage and a test bench for YARA rules</p></div>
+              <p class="enlaces p-enlaces"><a class="boton-enlace principal" href="https://github.com/0xjgr/crisol">Check the code <span aria-hidden="true">→</span></a></p>
+              <button class="p-cerrar" type="button">close</button>
+            </header>
+            <div class="p-cuerpo sin-medio">
+              <div class="p-medio">
+                <p class="p-etiqueta recreacion"><b>Interactive recreation</b><span>running in your browser</span></p>
+                <div class="demo demo-crisol" id="demo-crisol" aria-label="Crisol demo: the same rule before and after tuning"></div>
+              </div>
+              <dl class="p-claves">
+                <div><dt>The problem</dt><dd>Anyone can write a YARA rule. Knowing how many legitimate programs it flags is the hard part.</dd></div>
+                <div><dt>What it does</dt><dd>Runs rules against known-clean and known-bad binaries and gives a <b>reproducible false positive rate</b>.</dd></div>
+                <div><dt>Result</dt><dd>Measured <b>12.18%</b> on 52 legitimate binaries, redesigned rule by rule down to <b>0%</b> with no loss of detection. Held at 0% on 315.</dd></div>
+              </dl>
+            </div>
+          </div>
+        </article>
+
+        <article class="proyecto" id="cibo" data-proyecto="cibo">
+          <div class="p-tarjeta">
+            <img class="p-mini" src="media/cibo-ascii-oscuro.webp" alt="" loading="lazy">
+            <h3><button class="p-abrir" type="button" aria-expanded="false" aria-controls="det-cibo">CIBO</button></h3>
+            <p class="p-contexto">Local AI on Ollama</p>
+            <p class="p-gancho">An assistant that runs on my machine and knows when not to guess.</p>
+            <p class="p-cifra">runs <span class="bien">fully local</span>, no API key</p>
+          </div>
+          <div class="p-detalle" id="det-cibo" hidden>
+            <header class="p-cab">
+              <div><h3 class="p-cab-t">CIBO</h3><p class="p-contexto">A local assistant on Ollama</p></div>
+              <p class="enlaces p-enlaces"><a class="boton-enlace principal" href="https://github.com/0xjgr/cibo">Check the code <span aria-hidden="true">→</span></a></p>
+              <button class="p-cerrar" type="button">close</button>
+            </header>
+            <div class="p-cuerpo sin-medio">
+              <div class="p-medio">
+                <p class="p-etiqueta recreacion"><b>Interactive recreation</b><span>running in your browser</span></p>
+                <div class="demo demo-cibo" id="demo-cibo" aria-label="Scripted CIBO demo"></div>
+              </div>
+              <dl class="p-claves">
+                <div><dt>Tools</dt><dd>An 8B model is bad with numbers, so it <b>hands off to a real calculator</b> or a Python executor instead of making up the answer.</dd></div>
+                <div><dt>Privacy</dt><dd>Before anything goes to the cloud, a filter catches card numbers, passwords or tokens and <b>keeps the answer local</b>.</dd></div>
+              </dl>
+            </div>
+          </div>
+        </article>
+
+        <article class="proyecto" id="garabato" data-proyecto="garabato">
+          <div class="p-tarjeta">
+            <img class="p-mini" src="media/garabato-cartel.webp" alt="" loading="lazy">
+            <h3><button class="p-abrir" type="button" aria-expanded="false" aria-controls="det-garabato">Garabato</button></h3>
+            <p class="p-contexto">Script to video</p>
+            <p class="p-gancho">I write a plain-text script and an edited video comes out.</p>
+            <p class="p-cifra"><span class="bien">0.05 s</span> drift over 83 beats</p>
+          </div>
+          <div class="p-detalle" id="det-garabato" hidden>
+            <header class="p-cab">
+              <div><h3 class="p-cab-t">Garabato</h3><p class="p-contexto">From a plain-text script to an edited video</p></div>
+              <p class="enlaces p-enlaces"><a class="boton-enlace principal" href="https://github.com/0xjgr/garabato">Check the code <span aria-hidden="true">→</span></a></p>
+              <button class="p-cerrar" type="button">close</button>
+            </header>
+            <div class="p-cuerpo sin-medio">
+              <div class="p-medio">
+                <p class="p-etiqueta recreacion"><b>Interactive recreation</b><span>running in your browser</span></p>
+                <div class="demo demo-garabato" id="demo-garabato" aria-label="Garabato demo: from a script line to a frame"></div>
+              </div>
+              <dl class="p-claves">
+                <div><dt>How</dt><dd>Each sentence has a line of fields from a closed vocabulary, so <b>the same line always gives the same frame</b>.</dd></div>
+                <div><dt>Pipeline</dt><dd>Voice, images, subtitles and assembly run on their own. Every step is idempotent: stop halfway and pick up where you left off.</dd></div>
+                <div><dt>Result</dt><dd>One timeline drives images and subtitles, with <b>0.05 s</b> of drift over 83 beats.</dd></div>
+              </dl>
+            </div>
+          </div>
+        </article>
+
       </div>
     </section>
 
-    <section id="proyectos">
-      <h2>Projects</h2>
-
-      <article class="destacado" data-proyecto="timo">
-        <div class="texto">
-          <p class="eyebrow">agent security · Meta hackathon</p>
-          <h3>Timo</h3>
-          <p>An agent that pays bills reads untrusted mail on the way. In the first test, a fake invoice that only swapped the IBAN made it pay the attacker 7 times out of 9, and the model's own injection check never fired: there was no instruction to detect, only a wrong number.</p>
-          <p>Timo traces every value the agent types back to where it came from: what the user said, the household's ledger, or something it read. At the submit click, eleven deterministic rules judge the whole form. Over 179 attacked errands, the attacker got paid <b>25 of 89</b> times with the agent alone and <b>0 of 90</b> with Timo, with no legitimate errand blocked. Pick an errand.</p>
-          <p class="enlaces"><a href="https://github.com/0xjgr/timo">code →</a> &nbsp; <a href="https://0xjgr.github.io/timo/">replays of real errands →</a></p>
-        </div>
-        <div class="demo demo-timo" id="demo-timo" aria-label="Timo demo: the same errand with and without Timo"></div>
-      </article>
-
-      <article class="destacado invertido" data-proyecto="paperweight">
-        <div class="texto">
-          <p class="eyebrow">physical AI security · Nebius x NVIDIA hackathon</p>
-          <h3>Paperweight</h3>
-          <p>A note in a robot's camera view can redirect a robot driven by a vision model. The usual defense, masking all text, also stops it from reading labels: on real parcel photos it sorted 0 of 14 legitimate parcels.</p>
-          <p>In Paperweight every action cites the observation each value came from, and seven deterministic rules check those citations before anything reaches the Arduino. On 60 synthetic attacks, success drops from <b>90%</b> to <b>0%</b> with all 50 legitimate labels still read right, and none of <b>159,325</b> actions forged by an adaptive attacker reached the station. Pick a parcel.</p>
-          <p class="enlaces"><a href="https://github.com/0xjgr/paperweight">code →</a></p>
-        </div>
-        <div class="demo demo-paper" id="demo-paper" aria-label="Paperweight demo: a parcel with a planted note, with and without Paperweight"></div>
-      </article>
-
-      <article class="destacado" data-proyecto="crisol">
-        <div class="texto">
-          <p class="eyebrow">detection engineering</p>
-          <h3>Crisol</h3>
-          <p>Anyone can run a YARA rule. The hard part is knowing how good it is: how many false positives it throws against legitimate software and what it actually detects. Crisol turns that into a reproducible number.</p>
-          <p>The test bench measured a <b>12.18%</b> false positive rate on 52 legitimate binaries and drove the redesign rule by rule down to <b>0%</b> with no loss of detection. It then held at 0% on 315.</p>
-          <p class="enlaces"><a href="https://github.com/0xjgr/crisol">code →</a></p>
-        </div>
-        <div class="demo demo-crisol" id="demo-crisol" aria-label="Crisol demo: the same rule before and after tuning"></div>
-      </article>
-
-      <article class="destacado invertido" data-proyecto="cibo">
-        <div class="texto">
-          <p class="eyebrow">local AI</p>
-          <h3>CIBO</h3>
-          <p>An assistant that runs entirely on my machine on top of Ollama. An 8B model is terrible with numbers, so it knows when to hand off to a real calculator or a Python executor instead of making up the answer.</p>
-          <p>And before anything goes to the cloud, a filter catches card numbers, passwords or tokens and forces the answer to stay local.</p>
-          <p class="enlaces"><a href="https://github.com/0xjgr/cibo">code →</a></p>
-        </div>
-        <div class="demo demo-cibo" id="demo-cibo" aria-label="Scripted CIBO demo"></div>
-      </article>
-
-      <article class="destacado" data-proyecto="garabato">
-        <div class="texto">
-          <p class="eyebrow">automation</p>
-          <h3>Garabato</h3>
-          <p>I write the script and out comes the edited video. Each sentence is preceded by a line of fields from a closed vocabulary, so the same line always produces the same frame.</p>
-          <p>Voice, images, subtitles and assembly happen on their own, and every step is idempotent: you can stop halfway and pick up where you left off. Pick a line from the script.</p>
-          <p class="enlaces"><a href="https://github.com/0xjgr/garabato">code →</a></p>
-        </div>
-        <div class="demo demo-garabato" id="demo-garabato" aria-label="Garabato demo: from a script line to a frame"></div>
-      </article>
-
-      <h3 class="subtitulo">More projects</h3>
-      <div class="rejilla" id="rejilla"></div>
+    <section id="mas">
+      <h2>More projects</h2>
+      <ul class="indice" id="rejilla"></ul>
     </section>
 
     <section id="sobre-mi">
-      <h2>About me</h2>
+      <h2>About</h2>
       <div class="sobre">
-        <div class="bloque">
-          <h3>What I'm into</h3>
-          <ul class="chips" id="intereses"></ul>
-        </div>
-        <div class="bloque">
-          <h3><span class="punto" aria-hidden="true"></span> Currently working on</h3>
+        <div>
+          <h3 class="subtitulo">Working on now</h3>
           <ul class="lista-ahora">
+            <li><b>Security for AI agents</b>: guards that hold even when the model is fooled</li>
             <li><b>Linux system hardening</b></li>
-            <li><b>Agent security</b>: provenance policies that hold even when the model is fooled</li>
-            <li><b>Rust</b>: diving into how real Rust projects are architected</li>
+            <li><b>Rust</b>, by reading how real projects are built</li>
           </ul>
         </div>
+        <div>
+          <h3 class="subtitulo">What I work with</h3>
+          <dl class="stack" id="stack"></dl>
+        </div>
       </div>
-
-      <h3 class="subtitulo">What I work with</h3>
-      <div class="stack" id="stack"></div>
     </section>
 
     <section id="contacto">
       <h2>Contact</h2>
-      <p class="contacto-texto">If you want to talk about a project, security or anything else, drop me a line.</p>
-      <div class="acciones">
-        <a class="boton principal" href="mailto:jgarciamartinezdev@proton.me">jgarciamartinezdev@proton.me</a>
-        <a class="boton" href="https://www.linkedin.com/in/jorgegarciamartinezdev">LinkedIn</a>
-        <a class="boton" href="https://github.com/0xjgr">GitHub</a>
-      </div>
+      <p class="contacto-texto">To talk about a project, security or AI, write to me.</p>
+      <a class="contacto-mail" href="mailto:jgarciamartinezdev@proton.me">jgarciamartinezdev@proton.me</a>
+      <p class="enlaces"><a href="https://github.com/0xjgr">GitHub</a> <a href="https://www.linkedin.com/in/jorgegarciamartinezdev">LinkedIn</a></p>
     </section>
   </main>
+  </div>
+
+  <dialog class="ventana" id="ventana">
+    <div class="ventana-caja"></div>
+  </dialog>
 
   <footer>
-    <p>HTML, CSS and a bit of JavaScript, no frameworks. <a href="https://github.com/0xjgr/0xjgr.github.io">Source</a></p>
+    <p>HTML, CSS and a bit of JavaScript, no frameworks. <a href="https://github.com/0xjgr/0xjgr.github.io">Source</a>. Press <kbd>`</kbd> to jump to the terminal.</p>
   </footer>
-
-  <button class="flotante" type="button" data-abre-cromatoforo aria-label="Open cromatóforo">
-    <span class="muestras" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
-  </button>
-
-  <div class="panel-croma" id="panel-croma" role="dialog" aria-label="Cromatóforo" hidden>
-    <div class="cabecera-panel">
-      <p><b>cromatóforo</b></p>
-      <button type="button" data-cierra-cromatoforo aria-label="Close">×</button>
-    </div>
-    <label class="subir" id="subir">
-      <input type="file" accept="image/*" id="archivo">
-      <span class="subir-titulo">Upload an image</span>
-      <span>and the page takes its colors. You can also drop it anywhere.</span>
-      <small>It's processed in your browser and never leaves your device.</small>
-    </label>
-    <p class="apagado prueba">Don't have one handy? Try one of these:</p>
-    <div class="fondos" id="fondos"></div>
-    <div class="wal" aria-live="polite">
-      <p class="apagado" id="wal-orden">$ wal --original</p>
-      <div class="paleta" id="paleta"></div>
-      <button type="button" class="restaurar" id="restaurar">back to the original colors</button>
-    </div>
-  </div>
-
-  <div class="terminal" id="terminal" role="dialog" aria-modal="true" aria-label="Terminal" hidden>
-    <div class="ventana">
-      <div class="barra">
-        <span class="puntos" aria-hidden="true"><i></i><i></i><i></i></span>
-        <span>jorge@arch: ~</span>
-        <button type="button" data-cierra-terminal aria-label="Close terminal">×</button>
-      </div>
-      <div class="salida" id="salida"></div>
-      <form class="linea" id="linea" autocomplete="off">
-        <label for="orden"><span class="acento">jorge@arch</span> ~ $</label>
-        <input id="orden" spellcheck="false" autocapitalize="off">
-      </form>
-    </div>
-  </div>
 </body>
 </html>

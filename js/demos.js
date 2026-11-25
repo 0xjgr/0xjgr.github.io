@@ -65,7 +65,7 @@
     ];
 
     el.innerHTML = `
-      <div class="cabeza-demo">${conmutador([["solo", "agent alone"], ["timo", "with Timo"]])}<span>real rules and values · scripted</span></div>
+      <div class="cabeza-demo">${conmutador([["solo", "agent alone"], ["timo", "with Timo"]])}<span>real rules and values · recreation</span></div>
       <div class="timo-pide"><span class="apagado">request ›</span> <span class="t-pide"></span></div>
       <div class="timo-leyo"><span class="apagado">agent read ›</span> <span class="t-fuente"></span><div class="t-texto"></div></div>
       <div class="formulario" aria-live="polite">
@@ -202,7 +202,7 @@
       </svg>`;
 
     el.innerHTML = `
-      <div class="cabeza-demo">${conmutador([["solo", "no defense"], ["pw", "Paperweight"]])}<span>real task, rules and attack notes · scripted</span></div>
+      <div class="cabeza-demo">${conmutador([["solo", "no defense"], ["pw", "Paperweight"]])}<span>real task, rules and attack notes · recreation</span></div>
       <div class="paper-arriba">
         <div class="camara"></div>
         <div class="estacion" aria-label="Station">
@@ -278,6 +278,7 @@
   // ======================= CRISOL =======================
   (() => {
     const el = document.getElementById("demo-crisol");
+    if (!el) return;
     const M = {
       antes: {
         debug: "anti_debug_checks", api: "dynamic_api_resolution_and_alloc",
@@ -319,7 +320,7 @@
       <pre class="condicion" aria-live="polite"></pre>
       <div class="barras">
         <p class="leyenda">false positives on 52 legitimate binaries</p>
-        ${BARRAS.map(([n, v]) => `<div class="barra-fila${n === "global" ? " global" : ""}"><span class="n">${n}</span><span class="pista-b"><span class="relleno" style="width:0"></span></span><span class="v">0%</span></div>`).join("")}
+        ${BARRAS.map(([n, v], i) => `<div class="barra-fila${n === "global" ? " global" : ""}" style="--i:${i}"><span class="n">${n === "global" ? "all rules" : n}</span><span class="pista-b"><span class="antes-b" style="width:${(v / 12.5) * 100}%"></span><span class="relleno" style="width:0"></span></span><span class="v">0%</span></div>`).join("")}
       </div>`;
 
     const fmt = (v) => v.toLocaleString("en-US", { minimumFractionDigits: v % 1 ? (String(v).split(".")[1].length) : 1 }) + "%";
@@ -341,12 +342,24 @@
         s.title = m === "despues" && s.dataset.c ? (s.dataset.c === "s" ? "$s: strong, rare in legitimate software" : "$w: ubiquitous, also shows up in goodware") : "";
       });
       el.querySelector(".condicion").innerHTML = d.cond;
+      el.classList.toggle("afinado", m === "despues");
+      el.querySelector(".barras .leyenda").textContent = m === "antes" ? "false positives on 52 legitimate binaries, before tuning" : "false positives on 52 legitimate binaries, after tuning";
       el.querySelectorAll(".barra-fila").forEach((f, i) => {
         const v = m === "antes" ? BARRAS[i][1] : 0;
         f.querySelector(".relleno").style.width = `${(v / 12.5) * 100}%`;
         const t = f.querySelector(".v");
-        t.textContent = m === "antes" ? fmt(v) : (BARRAS[i][0] === "global" ? "0.0%" : "0%");
         t.style.color = m === "antes" ? "var(--mal)" : "var(--bien)";
+        // la cifra baja (o sube) a la vez que su barra
+        const desde = parseFloat(t.textContent) || 0, dec = BARRAS[i][0] === "global" ? 2 : 1;
+        const t0 = performance.now() + (reducido ? 0 : i * 150), dur = reducido ? 0 : 900;
+        cancelAnimationFrame(f._reloj);
+        const paso = (ahora) => {
+          const k = dur ? Math.min(1, Math.max(0, (ahora - t0) / dur)) : 1;
+          const x = desde + (v - desde) * (1 - Math.pow(1 - k, 3));
+          t.textContent = k < 1 ? `${x.toFixed(dec)}%` : (v ? fmt(v) : (dec === 2 ? "0.0%" : "0%"));
+          if (k < 1) f._reloj = requestAnimationFrame(paso);
+        };
+        f._reloj = requestAnimationFrame(paso);
       });
     }
     el.querySelector(".conmutador").addEventListener("click", (e) => {
@@ -393,7 +406,7 @@
       },
     ];
     el.innerHTML = `
-      <div class="cabeza-demo"><span><span class="led"></span>ollama · llama3.1:8b</span><span>scripted demo</span></div>
+      <div class="cabeza-demo"><span><span class="led"></span>ollama · llama3.1:8b</span><span>recreation</span></div>
       <div class="chat" aria-live="polite"></div>
       <div class="sugerencias">${ESCENAS.map((s, i) => `<button type="button" data-i="${i}">${s.boton}</button>`).join("")}</div>`;
     const chat = el.querySelector(".chat");

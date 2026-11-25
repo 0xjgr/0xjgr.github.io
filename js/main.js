@@ -1,51 +1,57 @@
-// Datos de los proyectos: los usan las tarjetas y la terminal.
-// Los que tienen demo: true salen en grande con su demo; el resto va en tarjetas.
+// Datos de los proyectos: los usan el indice y la terminal.
+// Los que tienen demo: true salen en grande en index.html; el resto va al indice.
+// "cifra" es un dato del README de ese repo; si el README no da ninguno, no se pone.
 window.PROYECTOS = [
   {
-    repo: "crisol", nombre: "Crisol", color: "#ff7a45", demo: true,
-    lema: "Static malware triage engine and test bench for YARA rules. It measured a 12.18% false positive rate on legitimate software and drove the redesign down to 0% with no loss of detection.",
-    etiquetas: ["Python", "YARA", "pefile", "capstone"],
-  },
-  {
-    repo: "cibo", nombre: "CIBO", color: "#3ddc97", demo: true,
-    lema: "AI assistant that runs fully local on Ollama. It knows when to use a real tool instead of making up the answer, and keeps sensitive data from leaking to the cloud.",
-    etiquetas: ["Python", "Ollama", "LangChain", "ChromaDB"],
-  },
-  {
-    repo: "garabato", nombre: "Garabato", color: "#ffd23f", demo: true,
-    lema: "You write the script, out comes the edited video: voice, images, subtitles and assembly. Every step is idempotent.",
-    etiquetas: ["Python", "PyTorch", "ffmpeg", "TTS"],
-  },
-  {
-    repo: "paperweight", nombre: "Paperweight", color: "#76b900", demo: true,
+    repo: "paperweight", nombre: "Paperweight", demo: true,
     lema: "A piece of paper shouldn't be able to command your robot. Every action a vision model sends to a real robot cites where its values came from, and seven deterministic rules check them first. Attack success drops from 90% to 0% with every legitimate parcel still sorted.",
     etiquetas: ["Python", "FastAPI", "Nemotron", "Arduino"],
   },
   {
-    repo: "timo", nombre: "Timo", color: "#4aa3ff", demo: true,
+    repo: "hearsay", nombre: "Hearsay", demo: true,
+    lema: "A dispute desk for PayPal merchants whose agent cannot be talked into a refund: every value is traced to who wrote it. A plain toolkit agent obeyed 54 of 56 attacks and all 54 reached PayPal; behind Hearsay none did.",
+    etiquetas: ["TypeScript", "PayPal Agent Toolkit", "Ollama"],
+  },
+  {
+    repo: "timo", nombre: "Timo", demo: true,
     lema: "Errand agent that pays bills for people who can't spot a scam. A firewall checks where every IBAN and amount came from before money moves: the attacker gets paid 25 of 89 times with the agent alone and 0 of 90 with Timo.",
     etiquetas: ["TypeScript", "Playwright", "Muse Spark", "agents"],
   },
   {
-    repo: "cromatoforo", nombre: "Cromatóforo", color: "#c792ea",
-    lema: "An Arch desktop where every color comes from the wallpaper. Nineteen programs repainted in one pass from a single source.",
+    repo: "crisol", nombre: "Crisol", demo: true,
+    lema: "Static malware triage engine and test bench for YARA rules. It measured a 12.18% false positive rate on legitimate software and drove the redesign down to 0% with no loss of detection.",
+    etiquetas: ["Python", "YARA", "pefile", "capstone"],
+  },
+  {
+    repo: "cibo", nombre: "CIBO", demo: true,
+    lema: "AI assistant that runs fully local on Ollama. It knows when to use a real tool instead of making up the answer, and keeps sensitive data from leaking to the cloud.",
+    etiquetas: ["Python", "Ollama", "LangChain", "ChromaDB"],
+  },
+  {
+    repo: "garabato", nombre: "Garabato", demo: true,
+    lema: "You write the script, out comes the edited video: voice, images, subtitles and assembly. Every step is idempotent.",
+    etiquetas: ["Python", "PyTorch", "ffmpeg", "TTS"],
+  },
+  {
+    repo: "cromatoforo", nombre: "Cromatóforo",
+    lema: "An Arch desktop where every color comes from the wallpaper, repainted in one pass from a single source.",
     etiquetas: ["Hyprland", "Lua", "pywal16", "Shell"],
   },
   {
-    repo: "pinchadiscos", nombre: "Pinchadiscos", color: "#ff4fa3",
+    repo: "pokegan", nombre: "PokeGAN", cifra: "10,000 epochs on about 800 sprites",
+    lema: "A DCGAN trained from scratch to generate 64x64 Pokémon sprites that don't exist.",
+    etiquetas: ["TensorFlow", "Keras", "DCGAN"],
+  },
+  {
+    repo: "pinchadiscos", nombre: "Pinchadiscos", cifra: "19 genres, 6 decades",
     lema: "Custom Spotify playlists by artist, genre, decade and popularity. OAuth 2.0 with the secret always kept on the server.",
     etiquetas: ["Next.js", "React", "OAuth 2.0", "Tailwind"],
   },
   {
-    repo: "vitrina", nombre: "Vitrina", color: "#8b7bff",
+    repo: "vitrina", nombre: "Vitrina",
     lema: "My collection of games, films, TV shows, books and albums, with what I think of each. Written in Obsidian, published as a website.",
     etiquetas: ["Obsidian", "TypeScript", "static site"],
     web: "https://0xjgr.github.io/vitrina/",
-  },
-  {
-    repo: "pokegan", nombre: "PokeGAN", color: "#ff5a5f",
-    lema: "A DCGAN trained from scratch for 10,000 epochs to generate Pokémon sprites that don't exist.",
-    etiquetas: ["TensorFlow", "Keras", "DCGAN"],
   },
 ];
 
@@ -65,54 +71,21 @@ window.STACK = [
 ];
 
 window.reducido = matchMedia("(prefers-reduced-motion: reduce)").matches;
-const reducido = window.reducido;
 
-// --- linea que se escribe sola ---
+// --- indice del resto de proyectos ---
 (() => {
-  const el = document.getElementById("tipo");
-  const frases = [
-    "sudo pacman -Syu",
-    "yara -r rules/ ./samples",
-    "nmap -sV 192.168.1.0/24",
-    "tail -f /var/log/auth.log",
-    "chmod 600 ~/.ssh/id_ed25519",
-    "docker compose up -d",
-    "ollama run llama3.1",
-    "wal -i wallpaper.jpg",
-    "make && ./a.out",
-    "npm run errand -- --scenario swap",
-    "uv run pytest",
-    ":wq",
-  ];
-  if (reducido) { el.textContent = frases[0]; return; }
-  let f = 0, n = 0, borrando = false;
-  (function paso() {
-    const texto = frases[f];
-    n += borrando ? -1 : 1;
-    el.textContent = texto.slice(0, n);
-    let espera = borrando ? 28 : 55 + Math.random() * 50;
-    if (!borrando && n === texto.length) { borrando = true; espera = 1800; }
-    else if (borrando && n === 0) { borrando = false; f = (f + 1) % frases.length; espera = 350; }
-    setTimeout(paso, espera);
-  })();
-})();
-
-// --- tarjetas del resto de proyectos ---
-(() => {
-  const rejilla = document.getElementById("rejilla");
+  const indice = document.getElementById("rejilla");
   for (const p of window.PROYECTOS.filter((p) => !p.demo)) {
-    const a = document.createElement("a");
-    a.className = "tarjeta aparece";
-    a.href = p.web || `https://github.com/0xjgr/${p.repo}`;
-    a.innerHTML = `
-      <h4>${p.nombre}<span aria-hidden="true">→</span></h4>
+    const li = document.createElement("li");
+    const datos = [p.cifra, p.etiquetas.join(", ")].filter(Boolean).join(". ");
+    li.innerHTML = `
+      <a href="${p.web || `https://github.com/0xjgr/${p.repo}`}">${p.nombre}</a>
       <p>${p.lema}</p>
-      <div class="etiquetas">${p.etiquetas.map((e) => `<span>${e}</span>`).join("")}</div>
-      <div class="meta" data-meta="${p.repo}"></div>`;
-    rejilla.append(a);
+      <div class="meta">${datos}<span data-meta="${p.repo}"></span></div>`;
+    indice.append(li);
   }
 
-  // ultima actualizacion, en vivo; si la API falla, las tarjetas se quedan sin ella
+  // ultima actualizacion, en vivo; si la API falla, el indice se queda sin ella
   const hace = (fecha) => {
     const dias = Math.round((Date.now() - new Date(fecha)) / 864e5);
     if (dias < 1) return "today";
@@ -127,31 +100,29 @@ const reducido = window.reducido;
   window.REPOS.then((repos) => {
     for (const r of repos) {
       const el = document.querySelector(`[data-meta="${r.name}"]`);
-      if (!el) continue;
-      el.textContent = (r.stargazers_count ? `★ ${r.stargazers_count} · ` : "") + `updated ${hace(r.pushed_at)}`;
+      if (el) el.textContent = `. Updated ${hace(r.pushed_at)}`;
     }
   });
 })();
 
-// --- sobre mi: intereses y stack ---
+// --- sobre mi: con que trabajo ---
 (() => {
-  document.getElementById("intereses").innerHTML = window.INTERESES.map((t) => `<li>${t}</li>`).join("");
   document.getElementById("stack").innerHTML = window.STACK
-    .map((g) => `<div class="grupo"><h4>${g.grupo}</h4><p>${g.items.join(" · ")}</p></div>`).join("");
+    .map((g) => `<dt>${g.grupo}</dt><dd>${g.items.join(", ")}</dd>`).join("");
 })();
 
-// --- aparicion al hacer scroll ---
+// --- navegacion lateral: marca la seccion que se esta leyendo ---
 (() => {
-  document.querySelectorAll("section h2, .destacado, .bloque").forEach((el) => el.classList.add("aparece"));
-  const obs = new IntersectionObserver((entradas) => {
-    for (const e of entradas) {
+  const enlaces = [...document.querySelectorAll(".lat-nav a")];
+  const secciones = enlaces.map((a) => document.querySelector(a.getAttribute("href"))).filter(Boolean);
+  const obs = new IntersectionObserver((es) => {
+    for (const e of es) {
       if (!e.isIntersecting) continue;
-      e.target.classList.add("visible");
-      obs.unobserve(e.target);
+      enlaces.forEach((a) => a.setAttribute("aria-current", String(a.getAttribute("href") === `#${e.target.id}`)));
+      const activo = enlaces.find((a) => a.getAttribute("href") === `#${e.target.id}`);
+      const ruta = document.querySelector(".lat-ruta");
+      if (activo && ruta) ruta.textContent = `~/${activo.textContent}`;
     }
-  }, { threshold: 0.12 });
-  document.querySelectorAll(".aparece").forEach((el, i) => {
-    el.style.transitionDelay = `${(i % 3) * 70}ms`;
-    obs.observe(el);
-  });
+  }, { rootMargin: "-35% 0px -60% 0px" });
+  secciones.forEach((s) => obs.observe(s));
 })();
